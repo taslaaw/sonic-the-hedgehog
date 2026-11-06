@@ -1,4 +1,4 @@
-# Bali Trip Planner — понятная структура проекта
+# Bali Trip Planner — структура проекта
 
 Это тот же Bali Trip Planner v3, но код разнесён по файлам и отформатирован.
 

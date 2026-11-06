@@ -1,44 +1,349 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bali Trip Planner · v3</title><style>
-:root{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#19312e;background:#f4f7f5}*{box-sizing:border-box}body{margin:0}main{max-width:1120px;margin:auto;padding:26px 18px 90px}.hero{background:linear-gradient(120deg,#103d35,#1c7565);color:white;border-radius:24px;padding:26px;margin-bottom:18px}.hero h1{font-size:32px;margin:4px 0}.hero p{opacity:.83;margin:4px 0 0}.card{background:white;border:1px solid #e2eae6;border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 5px 20px #103d3508}h2{font-size:21px;margin:0 0 17px}h3{font-size:16px;margin:0 0 12px}.muted,small{color:#6b7c77;font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.four{grid-template-columns:repeat(4,minmax(0,1fr))}label{display:block;font-size:12px;font-weight:650;color:#5a7069;margin-bottom:6px}input,select,textarea{font:inherit;width:100%;padding:11px 12px;border:1px solid #d7e2dd;border-radius:10px;background:white;color:#19312e;min-width:0}input[type=checkbox]{width:18px;height:18px;accent-color:#188875}input[type=range]{accent-color:#188875;padding:0}input:focus,select:focus{outline:2px solid #b2ded2}button{cursor:pointer;border:1px solid #cdded6;background:white;color:#1b5247;border-radius:11px;padding:10px 14px;font:inherit;font-weight:650}button.primary{background:#137d69;border-color:#137d69;color:white}button.active{background:#dff4ed;border-color:#16836f}button:hover{filter:brightness(.97)}.row{display:flex;gap:12px;align-items:center;justify-content:space-between}.wrap{flex-wrap:wrap}.summary{background:#edf7f2;border-radius:16px;padding:17px}.big{font-size:29px;font-weight:800;letter-spacing:-1px}.sub{font-size:15px;color:#50796b}.pill{display:inline-block;border-radius:50px;background:#e4eee9;padding:5px 10px;font-size:12px;font-weight:700}.good{color:#087d58}.bad{color:#c04444}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.tab{text-align:left;padding:14px;border-radius:14px}.tab strong{display:block;font-size:15px}.tab span{display:block;font-size:13px;margin-top:6px}.fieldrow{display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(90px,1fr) 90px minmax(110px,1fr);align-items:center;gap:10px;margin:12px 0}.fieldrow .hint{font-size:12px;color:#71817b}.flight{border:1px solid #e2eae6;border-radius:14px;padding:16px;margin:12px 0}.flightgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.expense{border-bottom:1px solid #edf1ee;padding:11px 0}.expense:last-child{border:0}.expensegrid{display:grid;grid-template-columns:1.5fr 1fr 90px 1.2fr;gap:9px;align-items:end}.progress{height:10px;border-radius:20px;background:#d8e5de;overflow:hidden}.progress>div{height:100%;background:#148a70;transition:width .2s}.check{display:flex;align-items:flex-start;gap:11px;padding:10px 0;border-bottom:1px solid #edf1ee}.check span{font-size:14px}.check.done span{text-decoration:line-through;color:#84938c}.note{background:#f5f8f6;border-radius:12px;padding:12px 15px;font-size:13px;line-height:1.6}.twoCol{display:grid;grid-template-columns:1fr 1fr;gap:18px}.right{text-align:right}.actions{display:flex;gap:8px;flex-wrap:wrap}a{color:#117c68}.tiny{font-size:11px}.sectiontitle{display:flex;align-items:center;justify-content:space-between;gap:8px}.scenarioBadge{background:#e5f4ed;color:#19775d;padding:5px 10px;border-radius:30px;font-size:12px}details{border-bottom:1px solid #e6ece8;padding:12px 0}summary{cursor:pointer;font-weight:650}.divider{height:1px;background:#e3ece7;margin:15px 0}.status{font-size:12px}.danger{background:#fff1ef;color:#b74437;padding:10px;border-radius:9px}.footer{font-size:12px;color:#7b8c83;margin-top:22px}.flight input{font-size:13px}.sticky-summary{display:none}@media(max-width:700px){main{padding:12px 12px 70px}.hero{padding:20px}.hero h1{font-size:26px}.card{padding:16px}.grid,.three,.four,.twoCol{grid-template-columns:1fr 1fr}.tabs{gap:6px}.tab{padding:10px 7px}.tab strong{font-size:12px}.tab span{font-size:12px}.big{font-size:24px}.fieldrow{grid-template-columns:1fr 1fr 76px}.fieldrow>div:first-child{grid-column:1/-1}.flightgrid{grid-template-columns:1fr 1fr}.expensegrid{grid-template-columns:1fr 1fr 75px}.expensegrid>div:first-child{grid-column:1/-1}.row.wrap{align-items:flex-start}.hide-mobile{display:none}}@media(max-width:390px){.grid,.three,.four{grid-template-columns:1fr 1fr}.flightgrid{grid-template-columns:1fr}.tabs{grid-template-columns:1fr}.tab{display:flex;justify-content:space-between;align-items:center}.tab span{margin:0}}
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+  <!-- СТРУКТУРА: контент страницы. Цвета и оформление находятся в styles.css; расчёты — в app.js. -->
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   Bali Trip Planner &middot; v3
+  </title>
+  <link href="styles.css" rel="stylesheet"/>
+ </head>
+ <body>
+  <main>
+   <header class="hero">
+    <div class="row wrap">
+     <div>
+      <small class="hero-eyebrow">
+       TRAVEL PLANNER &middot; 2026&ndash;2027
+      </small>
+      <h1>
+       🌴 Bali Trip Planner
+      </h1>
+      <p>
+       &Mcy;&ocy;&scy;&kcy;&vcy;&acy; &rarr; &Ucy;&bcy;&ucy;&dcy; &rarr; &Ucy;&lcy;&ucy;&vcy;&acy;&tcy;&ucy; &rarr; &Mcy;&ocy;&scy;&kcy;&vcy;&acy;
+      </p>
+     </div>
+     <div class="actions">
+      <button id="share" title="&Scy;&kcy;&ocy;&pcy;&icy;&rcy;&ocy;&vcy;&acy;&tcy;&softcy; &scy;&scy;&ycy;&lcy;&kcy;&ucy; &scy;&ocy; &scy;&ncy;&icy;&mcy;&kcy;&ocy;&mcy; &dcy;&acy;&ncy;&ncy;&ycy;&khcy;">
+       &Pcy;&ocy;&dcy;&iecy;&lcy;&icy;&tcy;&softcy;&scy;&yacy; &pcy;&lcy;&acy;&ncy;&ocy;&mcy;
+      </button>
+      <button id="export">
+       &Scy;&kcy;&acy;&chcy;&acy;&tcy;&softcy; &dcy;&acy;&ncy;&ncy;&ycy;&iecy;
+      </button>
+     </div>
+    </div>
+    <div class="widget-grid">
+     <div class="widget">
+      <span class="w-icon">
+       📆
+      </span>
+      <div class="w-value" id="heroDays">
+       20 &ncy;&ocy;&chcy;&iecy;&jcy;
+      </div>
+      <div class="w-label">
+       &Pcy;&rcy;&ocy;&dcy;&ocy;&lcy;&zhcy;&icy;&tcy;&iecy;&lcy;&softcy;&ncy;&ocy;&scy;&tcy;&softcy;
+      </div>
+     </div>
+     <div class="widget">
+      <span class="w-icon">
+       👥
+      </span>
+      <div class="w-value" id="heroPeople">
+       3 &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy;&acy;
+      </div>
+      <div class="w-label">
+       &Pcy;&ucy;&tcy;&iecy;&shcy;&iecy;&scy;&tcy;&vcy;&iecy;&ncy;&ncy;&icy;&kcy;&icy;
+      </div>
+     </div>
+     <div class="widget">
+      <span class="w-icon">
+       💳
+      </span>
+      <div class="w-value" id="heroCost">
+       &mdash;
+      </div>
+      <div class="w-label">
+       &Ncy;&acy; &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy;&acy;
+      </div>
+     </div>
+    </div>
+   </header>
+   <nav aria-label="&Rcy;&acy;&zcy;&dcy;&iecy;&lcy;&ycy;" class="topnav">
+    <a href="#dates">
+     &Dcy;&acy;&tcy;&ycy;
+    </a>
+    <a href="#overview">
+     &Scy;&tcy;&ocy;&icy;&mcy;&ocy;&scy;&tcy;&softcy;
+    </a>
+    <a href="#scenarios">
+     &Scy;&tscy;&iecy;&ncy;&acy;&rcy;&icy;&icy;
+    </a>
+    <a href="#flights-section">
+     &Pcy;&iecy;&rcy;&iecy;&lcy;&iocy;&tcy;&ycy;
+    </a>
+    <a href="#stays">
+     &ZHcy;&icy;&lcy;&softcy;&iocy;
+    </a>
+    <a href="#expenses-section">
+     &Rcy;&acy;&scy;&khcy;&ocy;&dcy;&ycy;
+    </a>
+    <a href="#check-section">
+     &CHcy;&iecy;&kcy;-&lcy;&icy;&scy;&tcy;
+    </a>
+   </nav>
+   <!-- РАЗДЕЛ: 📅 1. Даты и маршрут -->
+   <section class="card" id="dates">
+    <h2>
+     📅 1. &Dcy;&acy;&tcy;&ycy; &icy; &mcy;&acy;&rcy;&shcy;&rcy;&ucy;&tcy;
+    </h2>
+    <div class="grid four">
+     <div>
+      <label>
+       &Vcy;&ycy;&lcy;&iecy;&tcy; &icy;&zcy; &Mcy;&ocy;&scy;&kcy;&vcy;&ycy;
+      </label>
+      <input id="departure" max="2026-12-28" min="2026-12-22" type="date"/>
+     </div>
+     <div>
+      <label>
+       &Pcy;&rcy;&icy;&lcy;&iocy;&tcy; &ncy;&acy; &Bcy;&acy;&lcy;&icy;
+      </label>
+      <input id="arrival" type="date"/>
+     </div>
+     <div>
+      <label>
+       &Vcy;&ycy;&lcy;&iecy;&tcy; &scy; &Bcy;&acy;&lcy;&icy;
+      </label>
+      <input id="return" type="date"/>
+     </div>
+     <div>
+      <label>
+       &Pcy;&rcy;&icy;&lcy;&iocy;&tcy; &vcy; &Mcy;&ocy;&scy;&kcy;&vcy;&ucy;
+      </label>
+      <input id="home" type="date"/>
+     </div>
+    </div>
+    <div class="note margin-top-12">
+     &Vcy;&ycy;&lcy;&iecy;&tcy; &icy;&zcy; &Mcy;&ocy;&scy;&kcy;&vcy;&ycy; &ocy;&rcy;&icy;&iecy;&ncy;&tcy;&icy;&rcy;&ocy;&vcy;&ocy;&chcy;&ncy;&ocy; 25 &dcy;&iecy;&kcy;&acy;&bcy;&rcy;&yacy; &plusmn;3 &dcy;&ncy;&yacy;, &ocy;&bcy;&rcy;&acy;&tcy;&ncy;&ycy;&jcy; &vcy;&ycy;&lcy;&iecy;&tcy; &ocy;&rcy;&icy;&iecy;&ncy;&tcy;&icy;&rcy;&ocy;&vcy;&ocy;&chcy;&ncy;&ocy; 15 &yacy;&ncy;&vcy;&acy;&rcy;&yacy; &plusmn;3 &dcy;&ncy;&yacy;. &Pcy;&rcy;&icy; &icy;&zcy;&mcy;&iecy;&ncy;&iecy;&ncy;&icy;&icy; &vcy;&ycy;&lcy;&iecy;&tcy;&acy; &icy;&zcy; &Mcy;&ocy;&scy;&kcy;&vcy;&ycy; &icy;&lcy;&icy; &pcy;&rcy;&icy;&lcy;&iocy;&tcy;&acy; &vcy; &Mcy;&ocy;&scy;&kcy;&vcy;&ucy; &scy;&vcy;&yacy;&zcy;&acy;&ncy;&ncy;&acy;&yacy; &dcy;&acy;&tcy;&acy; &ncy;&acy; &Bcy;&acy;&lcy;&icy; &scy;&dcy;&vcy;&icy;&gcy;&acy;&iecy;&tcy;&scy;&yacy; &ncy;&acy; &scy;&tcy;&ocy;&lcy;&softcy;&kcy;&ocy; &zhcy;&iecy; &dcy;&ncy;&iecy;&jcy;. &Pcy;&rcy;&ocy;&pcy;&ocy;&rcy;&tscy;&icy;&yacy; &ncy;&ocy;&chcy;&iecy;&jcy; &mcy;&iecy;&zhcy;&dcy;&ucy; &gcy;&ocy;&rcy;&ocy;&dcy;&acy;&mcy;&icy; &scy;&ocy;&khcy;&rcy;&acy;&ncy;&yacy;&iecy;&tcy;&scy;&yacy;. &Ncy;&ocy;&chcy;&icy; &scy;&chcy;&icy;&tcy;&acy;&yucy;&tcy;&scy;&yacy; &ocy;&tcy; &pcy;&rcy;&icy;&lcy;&iocy;&tcy;&acy; &ncy;&acy; &Bcy;&acy;&lcy;&icy; &dcy;&ocy; &ocy;&bcy;&rcy;&acy;&tcy;&ncy;&ocy;&gcy;&ocy; &vcy;&ycy;&lcy;&iecy;&tcy;&acy;. &Dcy;&acy;&tcy;&ycy; &icy; &vcy;&rcy;&iecy;&mcy;&yacy; &pcy;&iecy;&rcy;&iecy;&lcy;&iocy;&tcy;&ocy;&vcy; &mcy;&ocy;&zhcy;&ncy;&ocy; &ucy;&tcy;&ocy;&chcy;&ncy;&icy;&tcy;&softcy; &ncy;&icy;&zhcy;&iecy;.
+    </div>
+    <div class="row margin-top-15">
+     <strong>
+      &Rcy;&acy;&scy;&pcy;&rcy;&iecy;&dcy;&iecy;&lcy;&iecy;&ncy;&icy;&iecy; &ncy;&ocy;&chcy;&iecy;&jcy;
+     </strong>
+     <span class="pill" id="nightText">
+     </span>
+    </div>
+    <input class="margin-top-12" id="ubudNights" max="40" min="0" type="range"/>
+    <div class="row">
+     <span id="ubudText">
+     </span>
+     <span id="uluwatuText">
+     </span>
+    </div>
+    <div class="danger date-error-hidden" id="dateError">
+     &Dcy;&acy;&tcy;&acy; &ocy;&bcy;&rcy;&acy;&tcy;&ncy;&ocy;&gcy;&ocy; &vcy;&ycy;&lcy;&iecy;&tcy;&acy; &dcy;&ocy;&lcy;&zhcy;&ncy;&acy; &bcy;&ycy;&tcy;&softcy; &pcy;&ocy;&zcy;&zhcy;&iecy; &pcy;&rcy;&icy;&lcy;&iocy;&tcy;&acy; &ncy;&acy; &Bcy;&acy;&lcy;&icy;.
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 💱 2. Курс, участники и бюджет -->
+   <section class="card">
+    <h2>
+     💱 2. &Kcy;&ucy;&rcy;&scy;, &ucy;&chcy;&acy;&scy;&tcy;&ncy;&icy;&kcy;&icy; &icy; &bcy;&yucy;&dcy;&zhcy;&iecy;&tcy;
+    </h2>
+    <div class="grid three">
+     <div>
+      <label>
+       1 USD = RUB (&rcy;&ucy;&chcy;&ncy;&ocy;&jcy; &kcy;&ucy;&rcy;&scy;)
+      </label>
+      <input id="rate" min="0.01" step="0.1" type="number"/>
+     </div>
+     <div>
+      <label>
+       &Pcy;&ucy;&tcy;&iecy;&shcy;&iecy;&scy;&tcy;&vcy;&iecy;&ncy;&ncy;&icy;&kcy;&icy; (3&ndash;5)
+      </label>
+      <select id="people">
+       <option>
+        3
+       </option>
+       <option>
+        4
+       </option>
+       <option>
+        5
+       </option>
+      </select>
+     </div>
+     <div>
+      <label>
+       &Bcy;&yucy;&dcy;&zhcy;&iecy;&tcy; &ncy;&acy; &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy;&acy;, ₽
+      </label>
+      <input id="budget" min="0" type="number"/>
+     </div>
+    </div>
+    <div class="note margin-top-12">
+     &Scy;&ucy;&mcy;&mcy;&ycy; &khcy;&rcy;&acy;&ncy;&yacy;&tcy;&scy;&yacy; &vcy; &icy;&scy;&khcy;&ocy;&dcy;&ncy;&ocy;&jcy; &vcy;&acy;&lcy;&yucy;&tcy;&iecy; &kcy;&acy;&zhcy;&dcy;&ocy;&jcy; &scy;&tcy;&acy;&tcy;&softcy;&icy;. &Icy;&zcy;&mcy;&iecy;&ncy;&iecy;&ncy;&icy;&iecy; &kcy;&ucy;&rcy;&scy;&acy; &pcy;&iecy;&rcy;&iecy;&scy;&chcy;&icy;&tcy;&ycy;&vcy;&acy;&iecy;&tcy; &tcy;&ocy;&lcy;&softcy;&kcy;&ocy; &ecy;&kcy;&vcy;&icy;&vcy;&acy;&lcy;&iecy;&ncy;&tcy; &vcy; &dcy;&rcy;&ucy;&gcy;&ocy;&jcy; &vcy;&acy;&lcy;&yucy;&tcy;&iecy;. &Dcy;&lcy;&yacy; &pcy;&lcy;&acy;&ncy;&icy;&rcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &mcy;&ocy;&zhcy;&ncy;&ocy; &vcy;&rcy;&ucy;&chcy;&ncy;&ucy;&yucy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&icy;&tcy;&softcy; &kcy;&ucy;&rcy;&scy;&ycy; 80, 90 &icy;&lcy;&icy; 100 ₽/$.
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 💰 Сколько стоит поездка? -->
+   <section class="card" id="overview">
+    <h2>
+     💰 &Scy;&kcy;&ocy;&lcy;&softcy;&kcy;&ocy; &scy;&tcy;&ocy;&icy;&tcy; &pcy;&ocy;&iecy;&zcy;&dcy;&kcy;&acy;?
+    </h2>
+    <div id="topSummary">
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 🧭 3. Сценарий поездки -->
+   <section class="card" id="scenarios">
+    <h2>
+     🧭 3. &Scy;&tscy;&iecy;&ncy;&acy;&rcy;&icy;&jcy; &pcy;&ocy;&iecy;&zcy;&dcy;&kcy;&icy;
+    </h2>
+    <div class="tabs" id="tabs">
+    </div>
+    <p class="muted">
+     &Scy;&tscy;&iecy;&ncy;&acy;&rcy;&icy;&icy; &ncy;&iecy;&zcy;&acy;&vcy;&icy;&scy;&icy;&mcy;&ycy;. &Vcy;&ycy;&bcy;&icy;&rcy;&acy;&jcy; &ocy;&dcy;&icy;&ncy; &icy; &rcy;&iecy;&dcy;&acy;&kcy;&tcy;&icy;&rcy;&ucy;&jcy; &iecy;&gcy;&ocy; &pcy;&iecy;&rcy;&iecy;&lcy;&iocy;&tcy;&ycy;, &zhcy;&icy;&lcy;&softcy;&iocy;, &rcy;&acy;&scy;&khcy;&ocy;&dcy;&ycy; &icy; &scy;&tcy;&acy;&tcy;&ucy;&scy;&ycy;.
+    </p>
+   </section>
+   <!-- РАЗДЕЛ: ✈️ 4. Перелёты -->
+   <section class="card" id="flights-section">
+    <div class="sectiontitle">
+     <h2>
+      ✈️ 4. &Pcy;&iecy;&rcy;&iecy;&lcy;&iocy;&tcy;&ycy;
+     </h2>
+     <span class="scenarioBadge" data-scenario-name="">
+     </span>
+    </div>
+    <p class="muted">
+     &TScy;&iecy;&ncy;&acy; &tcy;&ucy;&dcy;&acy;-&ocy;&bcy;&rcy;&acy;&tcy;&ncy;&ocy; &ncy;&acy; &ocy;&dcy;&ncy;&ocy;&gcy;&ocy; &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy;&acy;. &Dcy;&iecy;&tcy;&acy;&lcy;&icy; &ncy;&acy;&pcy;&rcy;&acy;&vcy;&lcy;&iecy;&ncy;&icy;&jcy; &scy;&ocy;&khcy;&rcy;&acy;&ncy;&yacy;&yucy;&tcy;&scy;&yacy; &ocy;&tcy;&dcy;&iecy;&lcy;&softcy;&ncy;&ocy;; &ucy;&chcy;&icy;&tcy;&ycy;&vcy;&acy;&jcy; &mcy;&iecy;&scy;&tcy;&ncy;&ocy;&iecy; &vcy;&rcy;&iecy;&mcy;&yacy; &acy;&ecy;&rcy;&ocy;&pcy;&ocy;&rcy;&tcy;&ocy;&vcy;.
+    </p>
+    <div id="flightPrice">
+    </div>
+    <div id="flights">
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 🏡 5. Проживание -->
+   <section class="card" id="stays">
+    <div class="sectiontitle">
+     <h2>
+      🏡 5. &Pcy;&rcy;&ocy;&zhcy;&icy;&vcy;&acy;&ncy;&icy;&iecy;
+     </h2>
+     <span class="scenarioBadge" data-scenario-name="">
+     </span>
+    </div>
+    <p class="muted">
+     &Pcy;&ocy;&lcy;&ncy;&acy;&yacy; &scy;&tcy;&ocy;&icy;&mcy;&ocy;&scy;&tcy;&softcy; &zcy;&acy; &vcy;&scy;&iecy; &ncy;&ocy;&chcy;&icy; &ncy;&acy; &vcy;&scy;&yucy; &kcy;&ocy;&mcy;&pcy;&acy;&ncy;&icy;&yucy; &mdash; &bcy;&iecy;&zcy; &rcy;&acy;&scy;&chcy;&iocy;&tcy;&acy; &zcy;&acy; &ncy;&ocy;&chcy;&softcy;. &Vcy;&kcy;&lcy;&yucy;&chcy;&acy;&jcy; &ncy;&acy;&lcy;&ocy;&gcy;&icy; &icy; &scy;&bcy;&ocy;&rcy;&ycy; &vcy; &ucy;&kcy;&acy;&zcy;&acy;&ncy;&ncy;&ucy;&yucy; &scy;&ucy;&mcy;&mcy;&ucy;.
+    </p>
+    <div id="housing">
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 🍜 6. Расходы на Бали -->
+   <section class="card" id="expenses-section">
+    <div class="sectiontitle">
+     <h2>
+      🍜 6. &Rcy;&acy;&scy;&khcy;&ocy;&dcy;&ycy; &ncy;&acy; &Bcy;&acy;&lcy;&icy;
+     </h2>
+     <span class="scenarioBadge" data-scenario-name="">
+     </span>
+    </div>
+    <p class="muted">
+     &Dcy;&lcy;&yacy; &kcy;&acy;&zhcy;&dcy;&ocy;&jcy; &kcy;&acy;&tcy;&iecy;&gcy;&ocy;&rcy;&icy;&icy; &vcy;&ycy;&bcy;&iecy;&rcy;&icy; &vcy;&acy;&lcy;&yucy;&tcy;&ucy; &icy; &pcy;&rcy;&icy;&ncy;&tscy;&icy;&pcy; &rcy;&acy;&scy;&chcy;&iocy;&tcy;&acy;. &laquo;&Ncy;&acy; &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy;&acy; &vcy; &dcy;&iecy;&ncy;&softcy;&raquo; &ucy;&mcy;&ncy;&ocy;&zhcy;&acy;&iecy;&tcy;&scy;&yacy; &ncy;&acy; &chcy;&icy;&scy;&lcy;&ocy; &ncy;&ocy;&chcy;&iecy;&jcy; &icy; &ucy;&chcy;&acy;&scy;&tcy;&ncy;&icy;&kcy;&ocy;&vcy;, &laquo;&Ncy;&acy; &kcy;&ocy;&mcy;&pcy;&acy;&ncy;&icy;&yucy;&raquo; &ucy;&chcy;&icy;&tcy;&ycy;&vcy;&acy;&iecy;&tcy;&scy;&yacy; &ocy;&dcy;&icy;&ncy; &rcy;&acy;&zcy;.
+    </p>
+    <div id="expenses">
+    </div>
+    <div class="margin-top-16">
+     <label>
+      &Rcy;&iecy;&zcy;&iecy;&rcy;&vcy; &ncy;&acy; &ncy;&iecy;&pcy;&rcy;&iecy;&dcy;&vcy;&icy;&dcy;&iecy;&ncy;&ncy;&ycy;&iecy; &rcy;&acy;&scy;&khcy;&ocy;&dcy;&ycy;, %
+     </label>
+     <input class="reserve-input" id="reserve" max="100" min="0" type="number"/>
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 📊 7. Итоговая смета -->
+   <section class="card">
+    <h2>
+     📊 7. &Icy;&tcy;&ocy;&gcy;&ocy;&vcy;&acy;&yacy; &scy;&mcy;&iecy;&tcy;&acy;
+    </h2>
+    <div id="bottomSummary">
+    </div>
+    <div class="divider">
+    </div>
+    <h3>
+     &Rcy;&acy;&zcy;&bcy;&icy;&vcy;&kcy;&acy; &pcy;&ocy; &kcy;&acy;&tcy;&iecy;&gcy;&ocy;&rcy;&icy;&yacy;&mcy;
+    </h3>
+    <div id="breakdown">
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: ✅ 8. Чек-лист путешественника -->
+   <section class="card" id="check-section">
+    <div class="sectiontitle">
+     <h2>
+      ✅ 8. &CHcy;&iecy;&kcy;-&lcy;&icy;&scy;&tcy; &pcy;&ucy;&tcy;&iecy;&shcy;&iecy;&scy;&tcy;&vcy;&iecy;&ncy;&ncy;&icy;&kcy;&acy;
+     </h2>
+     <span class="pill" id="checkProgress">
+     </span>
+    </div>
+    <div class="progress">
+     <div id="checkBar">
+     </div>
+    </div>
+    <p class="muted">
+     &Ocy;&bcy;&shchcy;&icy;&jcy; &scy;&pcy;&icy;&scy;&ocy;&kcy; &pcy;&ocy;&dcy;&gcy;&ocy;&tcy;&ocy;&vcy;&kcy;&icy;. &Vcy; &ecy;&tcy;&ocy;&jcy; &acy;&vcy;&tcy;&ocy;&ncy;&ocy;&mcy;&ncy;&ocy;&jcy; &vcy;&iecy;&rcy;&scy;&icy;&icy; &ocy;&tcy;&mcy;&iecy;&tcy;&kcy;&icy; &scy;&ocy;&khcy;&rcy;&acy;&ncy;&yacy;&yucy;&tcy;&scy;&yacy; &vcy; &bcy;&rcy;&acy;&ucy;&zcy;&iecy;&rcy;&iecy; &kcy;&acy;&zhcy;&dcy;&ocy;&gcy;&ocy; &ucy;&chcy;&acy;&scy;&tcy;&ncy;&icy;&kcy;&acy; &ocy;&tcy;&dcy;&iecy;&lcy;&softcy;&ncy;&ocy;.
+    </p>
+    <div id="checklist">
+    </div>
+   </section>
+   <!-- РАЗДЕЛ: 🌺 9. Памятка по Бали -->
+   <section class="card">
+    <h2>
+     🌺 9. &Pcy;&acy;&mcy;&yacy;&tcy;&kcy;&acy; &pcy;&ocy; &Bcy;&acy;&lcy;&icy;
+    </h2>
+    <details open="">
+     <summary>
+      &Dcy;&ocy;&kcy;&ucy;&mcy;&iecy;&ncy;&tcy;&ycy; &icy; &vcy;&hardcy;&iecy;&zcy;&dcy;
+     </summary>
+     <p class="note">
+      &Pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&softcy; &scy;&rcy;&ocy;&kcy; &dcy;&iecy;&jcy;&scy;&tcy;&vcy;&icy;&yacy; &pcy;&acy;&scy;&pcy;&ocy;&rcy;&tcy;&acy; (&ocy;&bcy;&ycy;&chcy;&ncy;&ocy; &mcy;&icy;&ncy;&icy;&mcy;&ucy;&mcy; 6 &mcy;&iecy;&scy;&yacy;&tscy;&iecy;&vcy; &scy; &dcy;&acy;&tcy;&ycy; &vcy;&hardcy;&iecy;&zcy;&dcy;&acy;), &tcy;&rcy;&iecy;&bcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &kcy; &vcy;&icy;&zcy;&iecy; &pcy;&ocy; &scy;&vcy;&ocy;&iecy;&mcy;&ucy; &gcy;&rcy;&acy;&zhcy;&dcy;&acy;&ncy;&scy;&tcy;&vcy;&ucy;, &acy;&kcy;&tcy;&ucy;&acy;&lcy;&softcy;&ncy;&ucy;&yucy; &dcy;&iecy;&kcy;&lcy;&acy;&rcy;&acy;&tscy;&icy;&yucy; &pcy;&rcy;&icy;&bcy;&ycy;&tcy;&icy;&yacy; &icy; &tcy;&ucy;&rcy;&icy;&scy;&tcy;&icy;&chcy;&iecy;&scy;&kcy;&icy;&jcy; &scy;&bcy;&ocy;&rcy; &Bcy;&acy;&lcy;&icy;. &Tcy;&rcy;&iecy;&bcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &mcy;&ocy;&gcy;&ucy;&tcy; &mcy;&iecy;&ncy;&yacy;&tcy;&softcy;&scy;&yacy;: &scy;&vcy;&iecy;&rcy;&yacy;&jcy;&scy;&yacy; &scy; &ocy;&fcy;&icy;&tscy;&icy;&acy;&lcy;&softcy;&ncy;&ycy;&mcy;&icy; &scy;&acy;&jcy;&tcy;&acy;&mcy;&icy; &icy;&mcy;&mcy;&icy;&gcy;&rcy;&acy;&tscy;&icy;&icy; &Icy;&ncy;&dcy;&ocy;&ncy;&iecy;&zcy;&icy;&icy; &icy; &vcy;&lcy;&acy;&scy;&tcy;&iecy;&jcy; &Bcy;&acy;&lcy;&icy; &pcy;&iecy;&rcy;&iecy;&dcy; &vcy;&ycy;&lcy;&iecy;&tcy;&ocy;&mcy;.
+     </p>
+    </details>
+    <details>
+     <summary>
+      &Pcy;&ocy;&gcy;&ocy;&dcy;&acy; &vcy; &dcy;&iecy;&kcy;&acy;&bcy;&rcy;&iecy;&ndash;&yacy;&ncy;&vcy;&acy;&rcy;&iecy;
+     </summary>
+     <p class="note">
+      &Ecy;&tcy;&ocy; &scy;&iecy;&zcy;&ocy;&ncy; &dcy;&ocy;&zhcy;&dcy;&iecy;&jcy;. &Vcy;&ocy;&zcy;&mcy;&ocy;&zhcy;&ncy;&ycy; &icy;&ncy;&tcy;&iecy;&ncy;&scy;&icy;&vcy;&ncy;&ycy;&iecy; &lcy;&icy;&vcy;&ncy;&icy;, &vcy;&ycy;&scy;&ocy;&kcy;&acy;&yacy; &vcy;&lcy;&acy;&zhcy;&ncy;&ocy;&scy;&tcy;&softcy; &icy; &zcy;&acy;&dcy;&iecy;&rcy;&zhcy;&kcy;&icy; &ncy;&acy; &dcy;&ocy;&rcy;&ocy;&gcy;&acy;&khcy;. &Zcy;&acy;&lcy;&ocy;&zhcy;&icy; &zcy;&acy;&pcy;&acy;&scy; &vcy;&rcy;&iecy;&mcy;&iecy;&ncy;&icy; &ncy;&acy; &pcy;&iecy;&rcy;&iecy;&iecy;&zcy;&dcy;&ycy; &icy; &vcy;&ocy;&zcy;&softcy;&mcy;&icy; &lcy;&iocy;&gcy;&kcy;&icy;&jcy; &dcy;&ocy;&zhcy;&dcy;&iecy;&vcy;&icy;&kcy;.
+     </p>
+    </details>
+    <details>
+     <summary>
+      &Dcy;&iecy;&ncy;&softcy;&gcy;&icy; &icy; &ocy;&bcy;&mcy;&iecy;&ncy;
+     </summary>
+     <p class="note">
+      &Mcy;&iecy;&scy;&tcy;&ncy;&acy;&yacy; &vcy;&acy;&lcy;&yucy;&tcy;&acy; &mdash; &icy;&ncy;&dcy;&ocy;&ncy;&iecy;&zcy;&icy;&jcy;&scy;&kcy;&acy;&yacy; &rcy;&ucy;&pcy;&icy;&yacy; (IDR). &Ucy;&tcy;&ocy;&chcy;&ncy;&icy; &vcy;&ocy;&zcy;&mcy;&ocy;&zhcy;&ncy;&ocy;&scy;&tcy;&softcy; &icy;&scy;&pcy;&ocy;&lcy;&softcy;&zcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &scy;&vcy;&ocy;&icy;&khcy; &bcy;&acy;&ncy;&kcy;&ocy;&vcy;&scy;&kcy;&icy;&khcy; &kcy;&acy;&rcy;&tcy;, &vcy;&ocy;&zcy;&softcy;&mcy;&icy; &rcy;&iecy;&zcy;&iecy;&rcy;&vcy;&ncy;&ycy;&jcy; &scy;&pcy;&ocy;&scy;&ocy;&bcy; &ocy;&pcy;&lcy;&acy;&tcy;&ycy; &icy; &mcy;&iecy;&ncy;&yacy;&jcy; &ncy;&acy;&lcy;&icy;&chcy;&ncy;&ycy;&iecy; &vcy; &pcy;&rcy;&ocy;&vcy;&iecy;&rcy;&iecy;&ncy;&ncy;&ycy;&khcy; &ocy;&bcy;&mcy;&iecy;&ncy;&ncy;&icy;&kcy;&acy;&khcy;. &Vcy; &ecy;&tcy;&ocy;&mcy; &kcy;&acy;&lcy;&softcy;&kcy;&ucy;&lcy;&yacy;&tcy;&ocy;&rcy;&iecy; USD &icy;&scy;&pcy;&ocy;&lcy;&softcy;&zcy;&ucy;&iecy;&tcy;&scy;&yacy; &dcy;&lcy;&yacy; &ucy;&dcy;&ocy;&bcy;&scy;&tcy;&vcy;&acy; &ocy;&tscy;&iecy;&ncy;&kcy;&icy;, &ncy;&ocy; &fcy;&acy;&kcy;&tcy;&icy;&chcy;&iecy;&scy;&kcy;&acy;&yacy; &ocy;&pcy;&lcy;&acy;&tcy;&acy; &mcy;&ocy;&zhcy;&iecy;&tcy; &pcy;&rcy;&ocy;&khcy;&ocy;&dcy;&icy;&tcy;&softcy; &vcy; IDR.
+     </p>
+    </details>
+    <details>
+     <summary>
+      &Tcy;&rcy;&acy;&ncy;&scy;&pcy;&ocy;&rcy;&tcy; &icy; &bcy;&iecy;&zcy;&ocy;&pcy;&acy;&scy;&ncy;&ocy;&scy;&tcy;&softcy;
+     </summary>
+     <p class="note">
+      &Dcy;&ocy;&rcy;&ocy;&gcy;&icy; &mcy;&ocy;&gcy;&ucy;&tcy; &bcy;&ycy;&tcy;&softcy; &zcy;&acy;&gcy;&rcy;&ucy;&zhcy;&iecy;&ncy;&ycy;. &Dcy;&lcy;&yacy; &scy;&kcy;&ucy;&tcy;&iecy;&rcy;&acy; &ncy;&iecy;&ocy;&bcy;&khcy;&ocy;&dcy;&icy;&mcy;&ycy; &scy;&ocy;&ocy;&tcy;&vcy;&iecy;&tcy;&scy;&tcy;&vcy;&ucy;&yucy;&shchcy;&icy;&iecy; &pcy;&rcy;&acy;&vcy;&acy;, &shcy;&lcy;&iecy;&mcy; &icy; &scy;&tcy;&rcy;&acy;&khcy;&ocy;&vcy;&kcy;&acy; &scy; &ncy;&ucy;&zhcy;&ncy;&ycy;&mcy; &pcy;&ocy;&kcy;&rcy;&ycy;&tcy;&icy;&iecy;&mcy;. &Dcy;&lcy;&yacy; &kcy;&ocy;&mcy;&pcy;&acy;&ncy;&icy;&icy; &icy;&zcy; 3&ndash;5 &chcy;&iecy;&lcy;&ocy;&vcy;&iecy;&kcy; &chcy;&acy;&scy;&tcy;&ocy; &ucy;&dcy;&ocy;&bcy;&ncy;&iecy;&iecy; &zcy;&acy;&rcy;&acy;&ncy;&iecy;&iecy; &ocy;&rcy;&gcy;&acy;&ncy;&icy;&zcy;&ocy;&vcy;&acy;&tcy;&softcy; &acy;&vcy;&tcy;&ocy;&mcy;&ocy;&bcy;&icy;&lcy;&softcy; &scy; &vcy;&ocy;&dcy;&icy;&tcy;&iecy;&lcy;&iecy;&mcy;.
+     </p>
+    </details>
+    <details>
+     <summary>
+      &Zcy;&dcy;&ocy;&rcy;&ocy;&vcy;&softcy;&iecy; &icy; &scy;&vcy;&yacy;&zcy;&softcy;
+     </summary>
+     <p class="note">
+      &Scy;&tcy;&rcy;&acy;&khcy;&ocy;&vcy;&kcy;&acy;, &lcy;&icy;&chcy;&ncy;&ycy;&iecy; &lcy;&iecy;&kcy;&acy;&rcy;&scy;&tcy;&vcy;&acy;, SPF, &rcy;&iecy;&pcy;&iecy;&lcy;&lcy;&iecy;&ncy;&tcy;, &ocy;&fcy;&lcy;&acy;&jcy;&ncy;-&kcy;&acy;&rcy;&tcy;&ycy;, eSIM &icy;&lcy;&icy; &mcy;&iecy;&scy;&tcy;&ncy;&acy;&yacy; SIM. &Ncy;&iecy; &ocy;&scy;&tcy;&acy;&vcy;&lcy;&yacy;&jcy; &tscy;&iecy;&ncy;&ncy;&ycy;&iecy; &vcy;&iecy;&shchcy;&icy; &bcy;&iecy;&zcy; &pcy;&rcy;&icy;&scy;&mcy;&ocy;&tcy;&rcy;&acy; &icy; &ucy;&tcy;&ocy;&chcy;&ncy;&yacy;&jcy; &acy;&kcy;&tcy;&ucy;&acy;&lcy;&softcy;&ncy;&ycy;&iecy; &rcy;&iecy;&kcy;&ocy;&mcy;&iecy;&ncy;&dcy;&acy;&tscy;&icy;&icy; &pcy;&ocy; &zcy;&dcy;&ocy;&rcy;&ocy;&vcy;&softcy;&yucy; &pcy;&iecy;&rcy;&iecy;&dcy; &pcy;&ocy;&iecy;&zcy;&dcy;&kcy;&ocy;&jcy;.
+     </p>
+    </details>
+    <div class="footer">
+     &Icy;&ncy;&fcy;&ocy;&rcy;&mcy;&acy;&tscy;&icy;&ocy;&ncy;&ncy;&acy;&yacy; &pcy;&acy;&mcy;&yacy;&tcy;&kcy;&acy;, &ncy;&iecy; &ocy;&fcy;&icy;&tscy;&icy;&acy;&lcy;&softcy;&ncy;&ycy;&jcy; &icy;&scy;&tcy;&ocy;&chcy;&ncy;&icy;&kcy; &mcy;&icy;&gcy;&rcy;&acy;&tscy;&icy;&ocy;&ncy;&ncy;&ycy;&khcy; &pcy;&rcy;&acy;&vcy;&icy;&lcy;. &TScy;&iecy;&ncy;&ycy; &vcy; &pcy;&rcy;&icy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&icy; &mdash; &vcy;&vcy;&ocy;&dcy;&icy;&mcy;&ycy;&iecy; &vcy;&acy;&mcy;&icy; &ocy;&tscy;&iecy;&ncy;&kcy;&icy;, &ncy;&iecy; &pcy;&rcy;&iecy;&dcy;&lcy;&ocy;&zhcy;&iecy;&ncy;&icy;&yacy; &bcy;&rcy;&ocy;&ncy;&icy;&rcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &vcy; &rcy;&iecy;&acy;&lcy;&softcy;&ncy;&ocy;&mcy; &vcy;&rcy;&iecy;&mcy;&iecy;&ncy;&icy;.
+    </div>
+   </section>
+   <div class="footer">
+    Bali Trip Planner &middot; &Dcy;&acy;&ncy;&ncy;&ycy;&iecy; &scy;&ocy;&khcy;&rcy;&acy;&ncy;&yacy;&yucy;&tcy;&scy;&yacy; &vcy; localStorage &ecy;&tcy;&ocy;&gcy;&ocy; &bcy;&rcy;&acy;&ucy;&zcy;&iecy;&rcy;&acy;. &Scy;&scy;&ycy;&lcy;&kcy;&acy; &laquo;&Pcy;&ocy;&dcy;&iecy;&lcy;&icy;&tcy;&softcy;&scy;&yacy; &pcy;&lcy;&acy;&ncy;&ocy;&mcy;&raquo; &scy;&ocy;&dcy;&iecy;&rcy;&zhcy;&icy;&tcy; &scy;&ncy;&icy;&mcy;&ocy;&kcy; &dcy;&acy;&ncy;&ncy;&ycy;&khcy; &ncy;&acy; &mcy;&ocy;&mcy;&iecy;&ncy;&tcy; &kcy;&ocy;&pcy;&icy;&rcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy;; &pcy;&ocy;&scy;&lcy;&iecy;&dcy;&ucy;&yucy;&shchcy;&icy;&iecy; &icy;&zcy;&mcy;&iecy;&ncy;&iecy;&ncy;&icy;&yacy; &ncy;&iecy; &scy;&icy;&ncy;&khcy;&rcy;&ocy;&ncy;&icy;&zcy;&icy;&rcy;&ucy;&yucy;&tcy;&scy;&yacy; &mcy;&iecy;&zhcy;&dcy;&ucy; &ucy;&chcy;&acy;&scy;&tcy;&ncy;&icy;&kcy;&acy;&mcy;&icy;. &Dcy;&lcy;&yacy; &ocy;&bcy;&shchcy;&iecy;&gcy;&ocy; &rcy;&iecy;&dcy;&acy;&kcy;&tcy;&icy;&rcy;&ocy;&vcy;&acy;&ncy;&icy;&yacy; &vcy; &rcy;&iecy;&acy;&lcy;&softcy;&ncy;&ocy;&mcy; &vcy;&rcy;&iecy;&mcy;&iecy;&ncy;&icy; &pcy;&ocy;&ncy;&acy;&dcy;&ocy;&bcy;&icy;&tcy;&scy;&yacy; &scy;&iecy;&rcy;&vcy;&iecy;&rcy;&ncy;&acy;&yacy; &bcy;&acy;&zcy;&acy; &dcy;&acy;&ncy;&ncy;&ycy;&khcy;.
+   </div>
+  </main>
+  <script defer="" src="app.js">
+  </script>
+ </body>
+</html>
 
-/* Bali Trip Planner v3 — editorial Apple-inspired UI */
-:root{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;color:#1d1d1f;background:#f5f5f7;font-synthesis:none}body{background:#f5f5f7}main{max-width:1080px;padding:24px 24px 100px}.hero{background:#fff;color:#1d1d1f;border:1px solid #e7e7eb;border-radius:28px;padding:30px 34px;box-shadow:0 6px 28px #11111106}.hero h1{font-size:clamp(30px,5vw,48px);font-weight:750;letter-spacing:-.055em;line-height:1.08}.hero p{color:#73737a;opacity:1;font-size:15px}.hero small{color:#8b8b92!important;letter-spacing:.12em;font-weight:700}.hero button{background:#f5f5f7;color:#1d1d1f;border-color:#ededf0}.card{border:1px solid #ebebee;border-radius:25px;padding:28px 30px;margin:17px 0;box-shadow:0 8px 30px #11111105}h2{font-size:22px;font-weight:720;letter-spacing:-.035em}h3{letter-spacing:-.02em}label{color:#797982;font-weight:600}input,select,textarea{background:#f8f8fa;border:1px solid #e8e8ed;border-radius:12px;color:#1d1d1f;transition:border-color .15s,box-shadow .15s}input:focus,select:focus,textarea:focus{outline:0;border-color:#007aff;box-shadow:0 0 0 3px #007aff1a}button{border-radius:12px;border-color:#e6e6eb;color:#1d1d1f}button.primary,button.active{background:#007aff;color:white;border-color:#007aff}button:hover{filter:brightness(.975)}.summary{background:#f5f5f7;border-radius:20px;padding:23px}.big{font-size:clamp(27px,4vw,39px);letter-spacing:-.055em}.sub{color:#85858e}.pill{background:#f0f0f4;color:#45454b}.good{color:#18865b}.bad{color:#d34444}.progress{background:#e9e9ef}.progress>div{background:#007aff}.tab{border:1px solid #e7e7ed;border-radius:18px;background:#fafafa}.tab.active{background:#eef5ff;border:2px solid #007aff;color:#1d1d1f}.tab.active strong{color:#006ce1}.tab span{font-size:18px;font-weight:750;letter-spacing:-.035em}.scenarioBadge{background:#eaf2ff;color:#006ce1}.flight{background:#fbfbfc;border:1px solid #ececf0;border-radius:20px;padding:20px}.note{background:#f6f6f8;color:#666670;border-radius:15px}.divider{background:#ececf0}.check{border-color:#f0f0f2}.check input{accent-color:#007aff}.expense{border-color:#ededf0}.widget-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}.widget{background:#f5f5f7;border-radius:18px;padding:18px;min-width:0}.widget .w-icon{font-size:21px;display:block;margin-bottom:10px}.widget .w-value{font-size:20px;font-weight:750;letter-spacing:-.04em}.widget .w-label{font-size:12px;color:#777780;margin-top:4px}.topnav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 20px}.topnav a{text-decoration:none;background:#fff;border:1px solid #e8e8ed;border-radius:99px;padding:9px 14px;color:#5e5e67;font-size:12px;font-weight:650}.topnav a:hover{color:#007aff;border-color:#a7cfff}.eyebrow{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8a8a92;font-weight:700}.sectiontitle{align-items:center}#topSummary .summary{background:#f3f7ff}#topSummary .big{font-size:clamp(30px,4vw,42px)}.muted,small{color:#85858e}.footer{color:#94949c}.hero .actions button{font-size:12px}.hero .actions{align-self:flex-start}html{scroll-behavior:smooth}section[id]{scroll-margin-top:18px}@media(max-width:700px){main{padding:12px 12px 65px}.hero{padding:23px 20px}.hero h1{font-size:34px}.card{padding:20px 17px}.widget-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.widget{padding:12px 9px}.widget .w-value{font-size:16px}.widget .w-label{font-size:10px}.summary{padding:16px}.topnav{gap:6px}.topnav a{font-size:11px;padding:8px 11px}}
-
-/* Новый цвет интерфейса */
-:root {
-  --accent: #007AFF;
-}
-
-input[type="range"],
-input[type="checkbox"] {
-  accent-color: var(--accent);
-}
-
-button.primary {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.progress > div {
-  background: var(--accent);
-}
-
-a {
-  color: var(--accent);
-}
-
-</style></head><body><main><header class="hero"><div class="row wrap"><div><small style="color:#b9e5d8">TRAVEL PLANNER · 2026–2027</small><h1>🌴 Bali Trip Planner</h1><p>Москва → Убуд → Улувату → Москва</p></div><div class="actions"><button id="share" title="Скопировать ссылку со снимком данных">Поделиться планом</button><button id="export">Скачать данные</button></div></div><div class="widget-grid"><div class="widget"><span class="w-icon">📆</span><div class="w-value" id="heroDays">20 ночей</div><div class="w-label">Продолжительность</div></div><div class="widget"><span class="w-icon">👥</span><div class="w-value" id="heroPeople">3 человека</div><div class="w-label">Путешественники</div></div><div class="widget"><span class="w-icon">💳</span><div class="w-value" id="heroCost">—</div><div class="w-label">На человека</div></div></div></header><nav class="topnav" aria-label="Разделы"><a href="#dates">Даты</a><a href="#overview">Стоимость</a><a href="#scenarios">Сценарии</a><a href="#flights-section">Перелёты</a><a href="#stays">Жильё</a><a href="#expenses-section">Расходы</a><a href="#check-section">Чек-лист</a></nav>
-<section class="card" id="dates"><h2>📅 1. Даты и маршрут</h2><div class="grid four"><div><label>Вылет из Москвы</label><input type="date" id="departure" min="2026-12-22" max="2026-12-28"></div><div><label>Прилёт на Бали</label><input type="date" id="arrival"></div><div><label>Вылет с Бали</label><input type="date" id="return"></div><div><label>Прилёт в Москву</label><input type="date" id="home"></div></div><div class="note" style="margin-top:12px">Вылет из Москвы ориентировочно 25 декабря ±3 дня, обратный вылет ориентировочно 15 января ±3 дня. При изменении вылета из Москвы или прилёта в Москву связанная дата на Бали сдвигается на столько же дней. Пропорция ночей между городами сохраняется. Ночи считаются от прилёта на Бали до обратного вылета. Даты и время перелётов можно уточнить ниже.</div><div style="margin-top:15px" class="row"><strong>Распределение ночей</strong><span id="nightText" class="pill"></span></div><input type="range" id="ubudNights" min="0" max="40" style="margin-top:12px"><div class="row"><span id="ubudText"></span><span id="uluwatuText"></span></div><div id="dateError" class="danger" style="display:none;margin-top:12px">Дата обратного вылета должна быть позже прилёта на Бали.</div></section>
-<section class="card"><h2>💱 2. Курс, участники и бюджет</h2><div class="grid three"><div><label>1 USD = RUB (ручной курс)</label><input type="number" min="0.01" step="0.1" id="rate"></div><div><label>Путешественники (3–5)</label><select id="people"><option>3</option><option>4</option><option>5</option></select></div><div><label>Бюджет на человека, ₽</label><input type="number" min="0" id="budget"></div></div><div class="note" style="margin-top:12px">Суммы хранятся в исходной валюте каждой статьи. Изменение курса пересчитывает только эквивалент в другой валюте. Для планирования можно вручную проверить курсы 80, 90 или 100 ₽/$.</div></section>
-<section class="card" id="overview"><h2>💰 Сколько стоит поездка?</h2><div id="topSummary"></div></section>
-<section class="card" id="scenarios"><h2>🧭 3. Сценарий поездки</h2><div class="tabs" id="tabs"></div><p class="muted">Сценарии независимы. Выбирай один и редактируй его перелёты, жильё, расходы и статусы.</p></section>
-<section class="card" id="flights-section"><div class="sectiontitle"><h2>✈️ 4. Перелёты</h2><span class="scenarioBadge" data-scenario-name></span></div><p class="muted">Цена туда-обратно на одного человека. Детали направлений сохраняются отдельно; учитывай местное время аэропортов.</p><div id="flightPrice"></div><div id="flights"></div></section>
-<section class="card" id="stays"><div class="sectiontitle"><h2>🏡 5. Проживание</h2><span class="scenarioBadge" data-scenario-name></span></div><p class="muted">Полная стоимость за все ночи на всю компанию — без расчёта за ночь. Включай налоги и сборы в указанную сумму.</p><div id="housing"></div></section>
-<section class="card" id="expenses-section"><div class="sectiontitle"><h2>🍜 6. Расходы на Бали</h2><span class="scenarioBadge" data-scenario-name></span></div><p class="muted">Для каждой категории выбери валюту и принцип расчёта. «На человека в день» умножается на число ночей и участников, «На компанию» учитывается один раз.</p><div id="expenses"></div><div style="margin-top:16px"><label>Резерв на непредвиденные расходы, %</label><input type="number" id="reserve" min="0" max="100" style="max-width:140px"></div></section>
-<section class="card"><h2>📊 7. Итоговая смета</h2><div id="bottomSummary"></div><div class="divider"></div><h3>Разбивка по категориям</h3><div id="breakdown"></div></section>
-<section class="card" id="check-section"><div class="sectiontitle"><h2>✅ 8. Чек-лист путешественника</h2><span id="checkProgress" class="pill"></span></div><div class="progress"><div id="checkBar"></div></div><p class="muted">Общий список подготовки. В этой автономной версии отметки сохраняются в браузере каждого участника отдельно.</p><div id="checklist"></div></section>
-<section class="card"><h2>🌺 9. Памятка по Бали</h2><details open><summary>Документы и въезд</summary><p class="note">Проверь срок действия паспорта (обычно минимум 6 месяцев с даты въезда), требования к визе по своему гражданству, актуальную декларацию прибытия и туристический сбор Бали. Требования могут меняться: сверяйся с официальными сайтами иммиграции Индонезии и властей Бали перед вылетом.</p></details><details><summary>Погода в декабре–январе</summary><p class="note">Это сезон дождей. Возможны интенсивные ливни, высокая влажность и задержки на дорогах. Заложи запас времени на переезды и возьми лёгкий дождевик.</p></details><details><summary>Деньги и обмен</summary><p class="note">Местная валюта — индонезийская рупия (IDR). Уточни возможность использования своих банковских карт, возьми резервный способ оплаты и меняй наличные в проверенных обменниках. В этом калькуляторе USD используется для удобства оценки, но фактическая оплата может проходить в IDR.</p></details><details><summary>Транспорт и безопасность</summary><p class="note">Дороги могут быть загружены. Для скутера необходимы соответствующие права, шлем и страховка с нужным покрытием. Для компании из 3–5 человек часто удобнее заранее организовать автомобиль с водителем.</p></details><details><summary>Здоровье и связь</summary><p class="note">Страховка, личные лекарства, SPF, репеллент, офлайн-карты, eSIM или местная SIM. Не оставляй ценные вещи без присмотра и уточняй актуальные рекомендации по здоровью перед поездкой.</p></details><div class="footer">Информационная памятка, не официальный источник миграционных правил. Цены в приложении — вводимые вами оценки, не предложения бронирования в реальном времени.</div></section>
-<div class="footer">Bali Trip Planner · Данные сохраняются в localStorage этого браузера. Ссылка «Поделиться планом» содержит снимок данных на момент копирования; последующие изменения не синхронизируются между участниками. Для общего редактирования в реальном времени понадобится серверная база данных.</div></main>
-<script>
-(()=>{'use strict';const $=id=>document.getElementById(id),fmtRub=n=>Math.round(n).toLocaleString('ru-RU')+' ₽',fmtUsd=n=>'$'+Math.round(n).toLocaleString('en-US'),clone=x=>JSON.parse(JSON.stringify(x));const statusOptions=[['neutral','Не обсуждали'],['discussion','Обсуждаем'],['approved','Согласовано'],['rejected','Отклонено']];const bookingOptions=[['notbooked','Не забронировано'],['booked','Забронировано'],['paid','Оплачено']];const scenarioNames={economy:'Экономный',optimal:'Оптимальный',comfort:'Комфорт'};const categories=[['cafe','Кафе и рестораны','person_day'],['excursions','Экскурсии','person_trip'],['entertainment','Развлечения','person_trip'],['transfers','Трансферы и такси','group_trip'],['other','Прочие расходы','person_trip']];const checks=[['passport','Проверить паспорт и срок действия'],['visa','Проверить визу / e-VOA / VOA для своего гражданства'],['arrival','Проверить и заполнить декларацию прибытия'],['tax','Проверить и оплатить туристический сбор Бали'],['insurance','Оформить медицинскую страховку'],['tickets','Сохранить билеты и подтверждения бронирований'],['money','Подготовить деньги, карты и обмен валюты'],['internet','Подключить eSIM или местную SIM'],['transfer','Организовать трансфер аэропорт → Убуд'],['health','Собрать аптечку, SPF и репеллент'],['packing','Собрать одежду, дождевик и нужные адаптеры']];const amount=(v,c)=>({v,c});const flightLeg=()=>({airline:'',number:'',from:'',to:'',departure:'',arrival:'',stops:'0',connections:'',layover:'',duration:'',baggage:'',url:'',status:'neutral',booking:'notbooked'});const home=(v,uv,wv,daily)=>({flight:amount(v,'RUB'),ubud:{price:amount(uv,'USD'),name:'',url:'',status:'neutral',booking:'notbooked'},uluwatu:{price:amount(wv,'USD'),name:'',url:'',status:'neutral',booking:'notbooked'},legs:{out:flightLeg(),back:flightLeg()},expenses:{cafe:{price:amount(daily,'USD'),basis:'person_day'},excursions:{price:amount(100,'USD'),basis:'person_trip'},entertainment:{price:amount(80,'USD'),basis:'person_trip'},transfers:{price:amount(180,'USD'),basis:'group_trip'},other:{price:amount(50,'USD'),basis:'person_trip'}},reserve:10});const defaults={departure:'2026-12-25',arrival:'2026-12-26',return:'2027-01-15',home:'2027-01-16',ubudNights:10,rate:85,people:3,budget:250000,scenario:'optimal',scenarios:{economy:home(80000,900,1100,25),optimal:home(110000,1500,1900,45),comfort:home(150000,2600,3200,75)},checks:{}};let state=clone(defaults);try{if(location.hash.startsWith('#plan=')){const raw=decodeURIComponent(location.hash.slice(6));state={...clone(defaults),...JSON.parse(decodeURIComponent(escape(atob(raw))))};history.replaceState(null,'',location.pathname+location.search)}else{const saved=localStorage.getItem('baliTripPlannerV2');if(saved)state={...clone(defaults),...JSON.parse(saved)}}}catch(e){console.warn('Could not load saved data',e)}if(!state.scenarios||!state.scenarios[state.scenario])state=clone(defaults);const save=()=>{try{localStorage.setItem('baliTripPlannerV2',JSON.stringify(state))}catch(e){console.warn(e)}};const escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const val=n=>Math.max(0,Number(n)||0);const rate=()=>Math.max(.01,val(state.rate));const toRub=p=>p.c==='USD'?val(p.v)*rate():val(p.v);const toUsd=p=>toRub(p)/rate();const dayDiff=(a,b)=>{const x=Date.parse(a+'T12:00:00Z'),y=Date.parse(b+'T12:00:00Z');return Number.isFinite(x)&&Number.isFinite(y)?Math.round((y-x)/86400000):0};const nights=()=>Math.max(0,dayDiff(state.arrival,state.return));const calc=(id)=>{const s=state.scenarios[id],p=val(state.people),d=nights();const x={flight:toRub(s.flight)*p,ubud:toRub(s.ubud.price),uluwatu:toRub(s.uluwatu.price)};for(const [key,,basis] of categories){const e=s.expenses[key];const unit=e.basis||basis;x[key]=toRub(e.price)*(unit==='person_day'?p*d:unit==='person_trip'?p:unit==='group_day'?d:1)}const subtotal=Object.values(x).reduce((a,b)=>a+b,0),reserve=subtotal*val(s.reserve)/100;return {parts:x,subtotal,reserve,total:subtotal+reserve,per:(subtotal+reserve)/p}};const priceEditor=(p,path)=>`<input aria-label="Стоимость" type="number" min="0" step="0.01" value="${escape(p.v)}" data-price="${path}"><select aria-label="Валюта" data-currency="${path}"><option value="USD" ${p.c==='USD'?'selected':''}>USD $</option><option value="RUB" ${p.c==='RUB'?'selected':''}>RUB ₽</option></select><div class="hint">${fmtRub(toRub(p))}<br>${fmtUsd(toUsd(p))}</div>`;const options=(arr,selected)=>arr.map(([v,l])=>`<option value="${v}" ${selected===v?'selected':''}>${l}</option>`).join('');const statusControls=(path,obj)=>`<div class="grid" style="margin-top:12px"><div><label>Согласование</label><select data-field="${path}.status">${options(statusOptions,obj.status)}</select></div><div><label>Бронирование / оплата</label><select data-field="${path}.booking">${options(bookingOptions,obj.booking)}</select></div></div>`;const getPath=path=>path.split('.').reduce((o,k)=>o[k],state);const setPath=(path,v)=>{const keys=path.split('.');let o=state;for(const k of keys.slice(0,-1))o=o[k];o[keys[keys.length-1]]=v};function summary(){const c=calc(state.scenario),limit=val(state.budget),delta=limit-c.per,pct=limit?Math.min(100,c.per/limit*100):100;return `<div class="grid"><div class="summary"><small>На человека</small><div class="big">${fmtRub(c.per)}</div><div class="sub">${fmtUsd(c.per/rate())}</div></div><div class="summary"><small>На всю компанию (${state.people} чел.)</small><div class="big">${fmtRub(c.total)}</div><div class="sub">${fmtUsd(c.total/rate())}</div></div></div><div class="row wrap" style="margin:14px 0 10px"><span>Сценарий: <strong>${scenarioNames[state.scenario]}</strong></span><span class="${delta>=0?'good':'bad'}"><strong>${delta>=0?'Остаток':'Превышение'}: ${fmtRub(Math.abs(delta))} / чел.</strong></span></div><div class="progress"><div style="width:${pct}%;background:${delta>=0?'#148a70':'#c04444'}"></div></div><div class="row" style="margin-top:8px"><small>Бюджет ${fmtRub(limit)} / чел.</small><small>${limit?Math.round(c.per/limit*100)+'% бюджета':'Бюджет не задан'}</small></div>`}function renderOverview(){const d=nights(),u=Math.min(d,Math.max(0,val(state.ubudNights)));$('nightText').textContent=d+' ночей';$('ubudNights').max=d;$('ubudNights').value=u;$('ubudText').textContent='Убуд: '+u+' ночей';$('uluwatuText').textContent='Улувату: '+(d-u)+' ночей';$('dateError').style.display=dayDiff(state.arrival,state.return)<=0?'block':'none';$('heroDays').textContent=d+' ночей';$('heroPeople').textContent=state.people+' чел.';$('heroCost').textContent=fmtRub(calc(state.scenario).per);$('topSummary').innerHTML=summary();$('bottomSummary').innerHTML=summary();$('tabs').innerHTML=Object.keys(scenarioNames).map(id=>{const c=calc(id);return `<button class="tab ${id===state.scenario?'active':''}" data-scenario="${id}"><strong>${scenarioNames[id]}</strong><span>${fmtRub(c.per)}</span><small>${fmtUsd(c.per/rate())} / чел.</small></button>`}).join('');document.querySelectorAll('[data-scenario-name]').forEach(e=>e.textContent=scenarioNames[state.scenario]);const c=calc(state.scenario),names={flight:'Перелёты',ubud:'Жильё · Убуд',uluwatu:'Жильё · Улувату',cafe:'Кафе и рестораны',excursions:'Экскурсии',entertainment:'Развлечения',transfers:'Трансферы',other:'Прочее'};$('breakdown').innerHTML=Object.entries(c.parts).map(([k,v])=>`<div class="row" style="padding:8px 0;border-bottom:1px solid #edf1ee"><span>${names[k]}</span><strong>${fmtRub(v)} <small> / ${fmtUsd(v/rate())}</small></strong></div>`).join('')+`<div class="row" style="padding:10px 0"><span>Резерв (${state.scenarios[state.scenario].reserve}%)</span><strong>${fmtRub(c.reserve)}</strong></div><div class="row"><strong>ИТОГО</strong><strong>${fmtRub(c.total)} / ${fmtUsd(c.total/rate())}</strong></div>`}function flightForm(leg,key,label){const path=`scenarios.${state.scenario}.legs.${key}`;const f=(k,l,type='text')=>`<div><label>${l}</label><input type="${type}" data-field="${path}.${k}" value="${escape(leg[k])}"></div>`;return `<div class="flight"><h3>${label}</h3><div class="flightgrid">${f('airline','Авиакомпания')}${f('number','Номер рейса')}${f('from','Откуда (аэропорт)')}${f('to','Куда (аэропорт)')}${f('departure','Вылет, местное время','datetime-local')}${f('arrival','Прилёт, местное время','datetime-local')}${f('stops','Количество пересадок','number')}${f('connections','Где пересадки')}${f('layover','Длительность пересадок')}${f('duration','Общее время в пути')}${f('baggage','Багаж')}${f('url','Ссылка на билет','url')}</div>${statusControls(path,leg)}</div>`}function renderDetail(){const id=state.scenario,s=state.scenarios[id],base='scenarios.'+id;$('flightPrice').innerHTML=`<div class="fieldrow"><div><strong>Перелёт туда-обратно</strong><div class="hint">Стоимость на одного человека</div></div>${priceEditor(s.flight,base+'.flight')}</div>`;$('flights').innerHTML=flightForm(s.legs.out,'out','Москва → Денпасар (DPS)')+flightForm(s.legs.back,'back','Денпасар (DPS) → Москва');$('housing').innerHTML=[['ubud','Убуд'],['uluwatu','Улувату']].map(([key,label])=>{const h=s[key],path=base+'.'+key;return `<div class="flight"><h3>${label} · ${key==='ubud'?Math.min(nights(),val(state.ubudNights)):Math.max(0,nights()-val(state.ubudNights))} ночей</h3><div class="grid"><div><label>Название жилья</label><input data-field="${path}.name" value="${escape(h.name)}"></div><div><label>Ссылка на объект</label><input type="url" data-field="${path}.url" value="${escape(h.url)}"></div></div><div class="fieldrow" style="margin-top:15px"><div><strong>Полная стоимость на компанию</strong></div>${priceEditor(h.price,path+'.price')}</div>${statusControls(path,h)}</div>`}).join('');$('expenses').innerHTML=categories.map(([key,label,def])=>{const e=s.expenses[key],path=base+'.expenses.'+key;return `<div class="expense"><div class="expensegrid"><div><strong>${label}</strong><div class="hint">${e.basis==='person_day'?'На человека в день':e.basis==='person_trip'?'На человека за поездку':e.basis==='group_day'?'На компанию в день':'На компанию за поездку'}</div></div><input type="number" min="0" step="0.01" data-price="${path}.price" value="${escape(e.price.v)}"><select data-currency="${path}.price">${options([['USD','USD $'],['RUB','RUB ₽']],e.price.c)}</select><select data-field="${path}.basis">${options([['person_day','Чел. / день'],['person_trip','Чел. / поездка'],['group_day','Компания / день'],['group_trip','Компания / поездка']],e.basis)}</select></div><small>Итого: ${fmtRub(calc(id).parts[key])} / ${fmtUsd(calc(id).parts[key]/rate())}</small></div>`}).join('');$('reserve').value=s.reserve}function renderChecks(){const done=checks.filter(([id])=>state.checks[id]).length;$('checkProgress').textContent=done+' / '+checks.length;$('checkBar').style.width=(done/checks.length*100)+'%';$('checklist').innerHTML=checks.map(([id,label])=>`<label class="check ${state.checks[id]?'done':''}"><input type="checkbox" data-check="${id}" ${state.checks[id]?'checked':''}><span>${label}</span></label>`).join('')}function renderAll(){['departure','arrival','return','home','rate','people','budget'].forEach(k=>$(k).value=state[k]);renderOverview();renderDetail();renderChecks();save()}document.addEventListener('change',e=>{const t=e.target;if(t.dataset.check){state.checks[t.dataset.check]=t.checked;renderChecks();save();return}if(t.dataset.scenario){state.scenario=t.dataset.scenario;renderAll();return}if(t.dataset.currency){const p=getPath(t.dataset.currency),newC=t.value;if(p.c!==newC){const converted=newC==='USD'?toUsd(p):toRub(p);p.v=Math.round(converted*100)/100;p.c=newC}renderAll();return}if(t.dataset.price){getPath(t.dataset.price).v=val(t.value);renderAll();return}if(t.dataset.field){setPath(t.dataset.field,t.value);renderAll();return}if(['departure','arrival','return','home','rate','people','budget','ubudNights','reserve'].includes(t.id)){if(t.id==='reserve')state.scenarios[state.scenario].reserve=Math.min(100,val(t.value));else if(t.id==='ubudNights')state.ubudNights=val(t.value);else if(['rate','people','budget'].includes(t.id))state[t.id]=val(t.value);else if(['departure','arrival','return','home'].includes(t.id)){const oldN=nights(),oldU=val(state.ubudNights),oldDate=state[t.id];state[t.id]=t.value;if(t.id==='departure'&&oldDate&&state.arrival){const diff=dayDiff(oldDate,t.value);const next=new Date(state.arrival+'T12:00:00Z');next.setUTCDate(next.getUTCDate()+diff);state.arrival=next.toISOString().slice(0,10)}if(t.id==='home'&&oldDate&&state.return){const diff=dayDiff(oldDate,t.value);const next=new Date(state.return+'T12:00:00Z');next.setUTCDate(next.getUTCDate()+diff);state.return=next.toISOString().slice(0,10)}const newN=nights();if(newN!==oldN)state.ubudNights=oldN>0?Math.round(newN*oldU/oldN):Math.round(newN/2)}else state[t.id]=t.value;renderAll()}});document.addEventListener('input',e=>{if(e.target.id==='ubudNights'){state.ubudNights=val(e.target.value);renderOverview();save()}});document.addEventListener('click',e=>{const b=e.target.closest('[data-scenario]');if(b){state.scenario=b.dataset.scenario;renderAll()}});$('share').onclick=async()=>{try{const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(state))));const url=location.href.split('#')[0]+'#plan='+encodeURIComponent(encoded);await navigator.clipboard.writeText(url);alert('Ссылка со снимком плана скопирована. Она будет работать после публикации HTML на сайте. Это не синхронизация в реальном времени.')}catch(e){alert('Не удалось скопировать ссылку. Попробуйте открыть сайт по HTTPS.')}};$('export').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='bali-trip-plan.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};renderAll()})();
-</script></body></html>

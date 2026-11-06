@@ -1,0 +1,867 @@
+/*
+ * BALI TRIP PLANNER — ОФОРМЛЕНИЕ
+ * ------------------------------------------------------------
+ * 1. ЦВЕТА: изменяй значения ниже, чтобы менять всю палитру.
+ * 2. БАЗОВЫЕ ЭЛЕМЕНТЫ: сетки, поля, кнопки и карточки.
+ * 3. ВИЗУАЛЬНЫЙ СТИЛЬ: светлый Apple-inspired интерфейс.
+ * 4. АДАПТАЦИЯ: правила для экранов телефонов.
+ *
+ * CSS-комментарии отображаются серым в редакторе кода.
+ */
+
+/* ========== 1. ПАЛИТРА / DESIGN TOKENS ========== */
+:root {
+  --color-accent: #007AFF;        /* Активные кнопки, ползунки, ссылки */
+  --color-accent-soft: #EAF3FF;   /* Фон выбранных элементов */
+  --color-background: #F5F5F7;    /* Фон всей страницы */
+  --color-card: #FFFFFF;          /* Фон карточек */
+  --color-text: #1D1D1F;          /* Основной текст */
+  --color-muted: #6E6E73;         /* Подписи и пояснения */
+  --color-border: #E8E8ED;        /* Границы полей и карточек */
+  --color-danger: #D34444;        /* Ошибки и превышение бюджета */
+  --color-success: #247A61;       /* Только статус успешного результата */
+}
+
+/* ========== 2. БАЗОВАЯ СЕТКА И ЭЛЕМЕНТЫ ========== */
+:root {
+  font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 1120px;
+  margin: auto;
+  padding: 26px 18px 90px;
+}
+
+.hero {
+  background: linear-gradient(120deg,#1d1d1f,#343438);
+  color: white;
+  border-radius: 24px;
+  padding: 26px;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  font-size: 32px;
+  margin: 4px 0;
+}
+
+.hero p {
+  opacity: .83;
+  margin: 4px 0 0;
+}
+
+.card {
+  background: white;
+  border: 1px solid #e8e8ed;
+  border-radius: 20px;
+  padding: 22px;
+  margin: 16px 0;
+  box-shadow: 0 5px 20px #1d1d1f08;
+}
+
+h2 {
+  font-size: 21px;
+  margin: 0 0 17px;
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0 0 12px;
+}
+
+.muted,small {
+  color: #6e6e73;
+  font-size: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+}
+
+.three {
+  grid-template-columns: repeat(3,minmax(0,1fr));
+}
+
+.four {
+  grid-template-columns: repeat(4,minmax(0,1fr));
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 650;
+  color: #6e6e73;
+  margin-bottom: 6px;
+}
+
+input,select,textarea {
+  font: inherit;
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #e8e8ed;
+  border-radius: 10px;
+  background: white;
+  color: #1d1d1f;
+  min-width: 0;
+}
+
+input[type=checkbox] {
+  width: 18px;
+  height: 18px;
+  accent-color: #007aff;
+}
+
+input[type=range] {
+  accent-color: #007aff;
+  padding: 0;
+}
+
+input:focus,select:focus {
+  outline: 2px solid #bcdcff;
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #e8e8ed;
+  background: white;
+  color: #1d1d1f;
+  border-radius: 11px;
+  padding: 10px 14px;
+  font: inherit;
+  font-weight: 650;
+}
+
+button.primary {
+  background: #007aff;
+  border-color: #007aff;
+  color: white;
+}
+
+button.active {
+  background: #eaf3ff;
+  border-color: #007aff;
+}
+
+button:hover {
+  filter: brightness(.97);
+}
+
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.summary {
+  background: #f5f5f7;
+  border-radius: 16px;
+  padding: 17px;
+}
+
+.big {
+  font-size: 29px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.sub {
+  font-size: 15px;
+  color: #6e6e73;
+}
+
+.pill {
+  display: inline-block;
+  border-radius: 50px;
+  background: #f0f0f4;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.good {
+  color: #087d58;
+}
+
+.bad {
+  color: #c04444;
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+
+.tab {
+  text-align: left;
+  padding: 14px;
+  border-radius: 14px;
+}
+
+.tab strong {
+  display: block;
+  font-size: 15px;
+}
+
+.tab span {
+  display: block;
+  font-size: 13px;
+  margin-top: 6px;
+}
+
+.fieldrow {
+  display: grid;
+  grid-template-columns: minmax(180px,1.4fr) minmax(90px,1fr) 90px minmax(110px,1fr);
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0;
+}
+
+.fieldrow .hint {
+  font-size: 12px;
+  color: #6e6e73;
+}
+
+.flight {
+  border: 1px solid #e8e8ed;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 12px 0;
+}
+
+.flightgrid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+}
+
+.expense {
+  border-bottom: 1px solid #ededf0;
+  padding: 11px 0;
+}
+
+.expense:last-child {
+  border: 0;
+}
+
+.expensegrid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 90px 1.2fr;
+  gap: 9px;
+  align-items: end;
+}
+
+.progress {
+  height: 10px;
+  border-radius: 20px;
+  background: #e9e9ef;
+  overflow: hidden;
+}
+
+.progress>div {
+  height: 100%;
+  background: #007aff;
+  transition: width .2s;
+}
+
+.check {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 10px 0;
+  border-bottom: 1px solid #ededf0;
+}
+
+.check span {
+  font-size: 14px;
+}
+
+.check.done span {
+  text-decoration: line-through;
+  color: #85858e;
+}
+
+.note {
+  background: #f6f6f8;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.right {
+  text-align: right;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+a {
+  color: #007aff;
+}
+
+.tiny {
+  font-size: 11px;
+}
+
+.sectiontitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.scenarioBadge {
+  background: #eaf2ff;
+  color: #006ce1;
+  padding: 5px 10px;
+  border-radius: 30px;
+  font-size: 12px;
+}
+
+details {
+  border-bottom: 1px solid #ececf0;
+  padding: 12px 0;
+}
+
+summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+
+.divider {
+  height: 1px;
+  background: #ececf0;
+  margin: 15px 0;
+}
+
+.status {
+  font-size: 12px;
+}
+
+.danger {
+  background: #fff1ef;
+  color: #b74437;
+  padding: 10px;
+  border-radius: 9px;
+}
+
+.footer {
+  font-size: 12px;
+  color: #94949c;
+  margin-top: 22px;
+}
+
+.flight input {
+  font-size: 13px;
+}
+
+.sticky-summary {
+  display: none;
+}
+
+@media (max-width:700px) {
+  main {
+    padding: 12px 12px 70px;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+
+  .hero h1 {
+    font-size: 26px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .grid,.three,.four,.twoCol {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tabs {
+    gap: 6px;
+  }
+
+  .tab {
+    padding: 10px 7px;
+  }
+
+  .tab strong {
+    font-size: 12px;
+  }
+
+  .tab span {
+    font-size: 12px;
+  }
+
+  .big {
+    font-size: 24px;
+  }
+
+  .fieldrow {
+    grid-template-columns: 1fr 1fr 76px;
+  }
+
+  .fieldrow>div:first-child {
+    grid-column: 1/-1;
+  }
+
+  .flightgrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .expensegrid {
+    grid-template-columns: 1fr 1fr 75px;
+  }
+
+  .expensegrid>div:first-child {
+    grid-column: 1/-1;
+  }
+
+  .row.wrap {
+    align-items: flex-start;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+}
+
+@media (max-width:390px) {
+  .grid,.three,.four {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .flightgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tab span {
+    margin: 0;
+  }
+}
+
+/* ========== 3. СОВРЕМЕННЫЙ ВИЗУАЛЬНЫЙ СТИЛЬ ========== */
+:root {
+  font-family: -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  font-synthesis: none;
+}
+
+body {
+  background: #f5f5f7;
+}
+
+main {
+  max-width: 1080px;
+  padding: 24px 24px 100px;
+}
+
+.hero {
+  background: #fff;
+  color: #1d1d1f;
+  border: 1px solid #e7e7eb;
+  border-radius: 28px;
+  padding: 30px 34px;
+  box-shadow: 0 6px 28px #11111106;
+}
+
+.hero h1 {
+  font-size: clamp(30px,5vw,48px);
+  font-weight: 750;
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+
+.hero p {
+  color: #73737a;
+  opacity: 1;
+  font-size: 15px;
+}
+
+.hero small {
+  color: #8b8b92 !important;
+  letter-spacing: .12em;
+  font-weight: 700;
+}
+
+.hero button {
+  background: #f5f5f7;
+  color: #1d1d1f;
+  border-color: #ededf0;
+}
+
+.card {
+  border: 1px solid #ebebee;
+  border-radius: 25px;
+  padding: 28px 30px;
+  margin: 17px 0;
+  box-shadow: 0 8px 30px #11111105;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 720;
+  letter-spacing: -.035em;
+}
+
+h3 {
+  letter-spacing: -.02em;
+}
+
+label {
+  color: #797982;
+  font-weight: 600;
+}
+
+input,select,textarea {
+  background: #f8f8fa;
+  border: 1px solid #e8e8ed;
+  border-radius: 12px;
+  color: #1d1d1f;
+  transition: border-color .15s,box-shadow .15s;
+}
+
+input:focus,select:focus,textarea:focus {
+  outline: 0;
+  border-color: #007aff;
+  box-shadow: 0 0 0 3px #007aff1a;
+}
+
+button {
+  border-radius: 12px;
+  border-color: #e6e6eb;
+  color: #1d1d1f;
+}
+
+button.primary,button.active {
+  background: #007aff;
+  color: white;
+  border-color: #007aff;
+}
+
+button:hover {
+  filter: brightness(.975);
+}
+
+.summary {
+  background: #f5f5f7;
+  border-radius: 20px;
+  padding: 23px;
+}
+
+.big {
+  font-size: clamp(27px,4vw,39px);
+  letter-spacing: -.055em;
+}
+
+.sub {
+  color: #85858e;
+}
+
+.pill {
+  background: #f0f0f4;
+  color: #45454b;
+}
+
+.good {
+  color: #18865b;
+}
+
+.bad {
+  color: #d34444;
+}
+
+.progress {
+  background: #e9e9ef;
+}
+
+.progress>div {
+  background: #007aff;
+}
+
+.tab {
+  border: 1px solid #e7e7ed;
+  border-radius: 18px;
+  background: #fafafa;
+}
+
+.tab.active {
+  background: #eef5ff;
+  border: 2px solid #007aff;
+  color: #1d1d1f;
+}
+
+.tab.active strong {
+  color: #006ce1;
+}
+
+.tab span {
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -.035em;
+}
+
+.scenarioBadge {
+  background: #eaf2ff;
+  color: #006ce1;
+}
+
+.flight {
+  background: #fbfbfc;
+  border: 1px solid #ececf0;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.note {
+  background: #f6f6f8;
+  color: #666670;
+  border-radius: 15px;
+}
+
+.divider {
+  background: #ececf0;
+}
+
+.check {
+  border-color: #f0f0f2;
+}
+
+.check input {
+  accent-color: #007aff;
+}
+
+.expense {
+  border-color: #ededf0;
+}
+
+.widget-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.widget {
+  background: #f5f5f7;
+  border-radius: 18px;
+  padding: 18px;
+  min-width: 0;
+}
+
+.widget .w-icon {
+  font-size: 21px;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.widget .w-value {
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -.04em;
+}
+
+.widget .w-label {
+  font-size: 12px;
+  color: #777780;
+  margin-top: 4px;
+}
+
+.topnav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.topnav a {
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 99px;
+  padding: 9px 14px;
+  color: #5e5e67;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.topnav a:hover {
+  color: #007aff;
+  border-color: #a7cfff;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #8a8a92;
+  font-weight: 700;
+}
+
+.sectiontitle {
+  align-items: center;
+}
+
+#topSummary .summary {
+  background: #f3f7ff;
+}
+
+#topSummary .big {
+  font-size: clamp(30px,4vw,42px);
+}
+
+.muted,small {
+  color: #85858e;
+}
+
+.footer {
+  color: #94949c;
+}
+
+.hero .actions button {
+  font-size: 12px;
+}
+
+.hero .actions {
+  align-self: flex-start;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 18px;
+}
+
+@media (max-width:700px) {
+  main {
+    padding: 12px 12px 65px;
+  }
+
+  .hero {
+    padding: 23px 20px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+  }
+
+  .card {
+    padding: 20px 17px;
+  }
+
+  .widget-grid {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 7px;
+  }
+
+  .widget {
+    padding: 12px 9px;
+  }
+
+  .widget .w-value {
+    font-size: 16px;
+  }
+
+  .widget .w-label {
+    font-size: 10px;
+  }
+
+  .summary {
+    padding: 16px;
+  }
+
+  .topnav {
+    gap: 6px;
+  }
+
+  .topnav a {
+    font-size: 11px;
+    padding: 8px 11px;
+  }
+}
+
+/* ========== 4. ЦЕНТРАЛИЗОВАННЫЕ ЦВЕТА ========== */
+:root { color: var(--color-text); background: var(--color-background); }
+body { background: var(--color-background); color: var(--color-text); }
+a { color: var(--color-accent); }
+input[type="range"], input[type="checkbox"] { accent-color: var(--color-accent); }
+button.primary, button.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
+.tab.active { background: var(--color-accent-soft); border-color: var(--color-accent); color: var(--color-text); }
+.tab.active strong, .scenarioBadge { color: var(--color-accent); }
+.scenarioBadge { background: var(--color-accent-soft); }
+.progress > div { background: var(--color-accent); }
+input:focus, select:focus, textarea:focus { border-color: var(--color-accent); }
+.good { color: var(--color-success); }
+.bad { color: var(--color-danger); }
+.hero-eyebrow { color: var(--color-muted); }
+.margin-top-12 { margin-top: 12px; }
+.margin-top-15 { margin-top: 15px; }
+.margin-top-16 { margin-top: 16px; }
+.reserve-input { max-width: 140px; }
+.date-error-hidden { display: none; margin-top: 12px; }
+
+/* ========== 5. ФИНАНСОВЫЕ СТАТУСЫ ========== */
+/* Спокойный нефритовый зелёный только для положительного результата.
+   Синий акцент остаётся для кнопок, ползунков и активных сценариев. */
+:root {
+  --color-success-soft: #EAF5EF;
+  --color-danger-soft: #FFF0F0;
+}
+
+.budget-status-row { margin: 14px 0 10px; }
+.budget-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 11px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+.budget-status.good { background: var(--color-success-soft); color: var(--color-success); }
+.budget-status.bad { background: var(--color-danger-soft); color: var(--color-danger); }
+.progress > .progress-success { background: var(--color-success); }
+.progress > .progress-danger { background: var(--color-danger); }
+.budget-progress-caption { margin-top: 8px; }

@@ -140,9 +140,101 @@
             </div>`;
     }
 
-    function renderOverview() { const d = nights(), u = Math.min(d, Math.max(0, val(state.ubudNights))); $('nightText').textContent = d + ' ночей'; $('ubudNights').max = d; $('ubudNights').value = u; $('ubudText').textContent = 'Убуд: ' + u + ' ночей'; $('uluwatuText').textContent = 'Улувату: ' + (d - u) + ' ночей'; $('dateError').style.display = dayDiff(state.arrival, state.return) <= 0 ? 'block' : 'none'; $('heroDays').textContent = d + ' ночей'; $('heroPeople').textContent = state.people + ' чел.'; $('heroCost').textContent = fmtRub(calc(state.scenario).per); $('topSummary').innerHTML = summary(); $('bottomSummary').innerHTML = summary(); $('tabs').innerHTML = Object.keys(scenarioNames).map(id => { const c = calc(id); return `<button class="tab ${id === state.scenario ? 'active' : ''}" data-scenario="${id}"><strong>${scenarioNames[id]}</strong><span>${fmtRub(c.per)}</span><small>${fmtUsd(c.per / rate())} / чел.</small></button>`; }).join(''); document.querySelectorAll('[data-scenario-name]').forEach(e => e.textContent = scenarioNames[state.scenario]); const c = calc(state.scenario), names = { flight: 'Перелёты', ubud: 'Жильё · Убуд', uluwatu: 'Жильё · Улувату', cafe: 'Кафе и рестораны', excursions: 'Экскурсии', entertainment: 'Развлечения', transfers: 'Трансферы', other: 'Прочее' }; $('breakdown').innerHTML = Object.entries(c.parts).map(([k, v]) => `<div class="row" class="breakdown-row"><span>${names[k]}</span><strong>${fmtRub(v)} <small> / ${fmtUsd(v / rate())}</small></strong></div>`).join('') + `<div class="row" style="padding:10px 0"><span>Резерв (${state.scenarios[state.scenario].reserve}%)</span><strong>${fmtRub(c.reserve)}</strong></div><div class="row"><strong>ИТОГО</strong><strong>${fmtRub(c.total)} / ${fmtUsd(c.total / rate())}</strong></div>`; }
-    function flightForm(leg, key, label) { const path = `scenarios.${state.scenario}.legs.${key}`; const f = (k, l, type = 'text') => `<div><label>${l}</label><input type="${type}" data-field="${path}.${k}" value="${escape(leg[k])}"></div>`; return `<div class="flight"><h3>${label}</h3><div class="flightgrid">${f('airline', 'Авиакомпания')}${f('number', 'Номер рейса')}${f('from', 'Откуда (аэропорт)')}${f('to', 'Куда (аэропорт)')}${f('departure', 'Вылет, местное время', 'datetime-local')}${f('arrival', 'Прилёт, местное время', 'datetime-local')}${f('stops', 'Количество пересадок', 'number')}${f('connections', 'Где пересадки')}${f('layover', 'Длительность пересадок')}${f('duration', 'Общее время в пути')}${f('baggage', 'Багаж')}${f('url', 'Ссылка на билет', 'url')}</div>${statusControls(path, leg)}</div>`; }
-    function renderDetail() { const id = state.scenario, s = state.scenarios[id], base = 'scenarios.' + id; $('flightPrice').innerHTML = `<div class="fieldrow"><div><strong>Перелёт туда-обратно</strong><div class="hint">Стоимость на одного человека</div></div>${priceEditor(s.flight, base + '.flight')}</div>`; $('flights').innerHTML = flightForm(s.legs.out, 'out', 'Москва → Денпасар (DPS)') + flightForm(s.legs.back, 'back', 'Денпасар (DPS) → Москва'); $('housing').innerHTML = [['ubud', 'Убуд'], ['uluwatu', 'Улувату']].map(([key, label]) => { const h = s[key], path = base + '.' + key; return `<div class="flight"><h3>${label} · ${key === 'ubud' ? Math.min(nights(), val(state.ubudNights)) : Math.max(0, nights() - val(state.ubudNights))} ночей</h3><div class="grid"><div><label>Название жилья</label><input data-field="${path}.name" value="${escape(h.name)}"></div><div><label>Ссылка на объект</label><input type="url" data-field="${path}.url" value="${escape(h.url)}"></div></div><div class="fieldrow" style="margin-top:15px"><div><strong>Полная стоимость на компанию</strong></div>${priceEditor(h.price, path + '.price')}</div>${statusControls(path, h)}</div>`; }).join(''); $('expenses').innerHTML = categories.map(([key, label, def]) => { const e = s.expenses[key], path = base + '.expenses.' + key; return `<div class="expense"><div class="expensegrid"><div><strong>${label}</strong><div class="hint">${e.basis === 'person_day' ? 'На человека в день' : e.basis === 'person_trip' ? 'На человека за поездку' : e.basis === 'group_day' ? 'На компанию в день' : 'На компанию за поездку'}</div></div><input type="number" min="0" step="0.01" data-price="${path}.price" value="${escape(e.price.v)}"><select data-currency="${path}.price">${options([['USD', 'USD $'], ['RUB', 'RUB ₽']], e.price.c)}</select><select data-field="${path}.basis">${options([['person_day', 'Чел. / день'], ['person_trip', 'Чел. / поездка'], ['group_day', 'Компания / день'], ['group_trip', 'Компания / поездка']], e.basis)}</select></div><small>Итого: ${fmtRub(calc(id).parts[key])} / ${fmtUsd(calc(id).parts[key] / rate())}</small></div>`; }).join(''); $('reserve').value = s.reserve; }
+    /** Перерисовывает верхнюю сводку, сценарии и детализацию бюджета. */
+    function renderOverview() {
+        const days = nights();
+        const ubudDays = Math.min(days, val(state.ubudNights));
+        $('nightText').textContent = days + ' ночей';
+        $('ubudNights').max = days;
+        $('ubudNights').value = ubudDays;
+        $('ubudText').textContent = 'Убуд: ' + ubudDays + ' ночей';
+        $('uluwatuText').textContent = 'Улувату: ' + (days - ubudDays) + ' ночей';
+        $('dateError').style.display = dayDiff(state.arrival, state.return) <= 0 ? 'block' : 'none';
+        $('heroDays').textContent = days + ' ночей';
+        $('heroPeople').textContent = state.people + ' чел.';
+        $('heroCost').textContent = fmtRub(calc(state.scenario).per);
+        $('topSummary').innerHTML = summary();
+        $('bottomSummary').innerHTML = summary();
+        $('tabs').innerHTML = Object.keys(scenarioNames).map(id => {
+            const cost = calc(id);
+            return `<button class="tab ${id === state.scenario ? 'active' : ''}" data-scenario="${id}" aria-pressed="${id === state.scenario}"><strong>${scenarioNames[id]}</strong><span>${fmtRub(cost.per)}</span><small>${fmtUsd(cost.per / rate())} / чел.</small></button>`;
+        }).join('');
+        document.querySelectorAll('[data-scenario-name]').forEach(element => {
+            element.textContent = scenarioNames[state.scenario];
+            element.dataset.scenario = state.scenario;
+        });
+        const estimate = calc(state.scenario);
+        const names = { flight: 'Перелёты', ubud: 'Жильё · Убуд', uluwatu: 'Жильё · Улувату', cafe: 'Кафе и рестораны', excursions: 'Экскурсии', entertainment: 'Развлечения', transfers: 'Трансферы', other: 'Прочее' };
+        $('breakdown').innerHTML = Object.entries(estimate.parts).map(([key, cost]) => `<div class="row breakdown-row"><span>${names[key]}</span><strong>${fmtRub(cost)} <small> / ${fmtUsd(cost / rate())}</small></strong></div>`).join('') + `<div class="row breakdown-row"><span>Резерв (${state.scenarios[state.scenario].reserve}%)</span><strong>${fmtRub(estimate.reserve)}</strong></div><div class="row breakdown-row"><strong>ИТОГО</strong><strong>${fmtRub(estimate.total)} / ${fmtUsd(estimate.total / rate())}</strong></div>`;
+    }
+
+    /** Одно дополнительное поле для сведений о рейсе. */
+    function flightField(path, leg, key, label, type = 'text') {
+        return `<div><label>${label}</label><input type="${type}" ${type === 'number' ? 'min="0"' : ''} data-field="${path}.${key}" value="${escape(leg[key])}"></div>`;
+    }
+
+    /** Компактный рейс: дополнительные поля раскрываются нативным details. */
+    function flightForm(leg, key, label, date) {
+        const path = `scenarios.${state.scenario}.legs.${key}`;
+        const fields = [
+            flightField(path, leg, 'airline', 'Авиакомпания'),
+            flightField(path, leg, 'number', 'Номер рейса'),
+            flightField(path, leg, 'from', 'Аэропорт отправления'),
+            flightField(path, leg, 'to', 'Аэропорт прибытия'),
+            flightField(path, leg, 'departure', 'Вылет, местное время', 'datetime-local'),
+            flightField(path, leg, 'arrival', 'Прилёт, местное время', 'datetime-local'),
+            flightField(path, leg, 'stops', 'Количество пересадок', 'number'),
+            flightField(path, leg, 'connections', 'Где пересадки'),
+            flightField(path, leg, 'layover', 'Длительность пересадок'),
+            flightField(path, leg, 'duration', 'Общее время в пути'),
+            flightField(path, leg, 'baggage', 'Багаж'),
+            flightField(path, leg, 'url', 'Ссылка на билет', 'url')
+        ].join('');
+        const info = [leg.airline, leg.number].filter(Boolean).join(' · ') || 'Авиакомпания и номер рейса не указаны';
+        return `<details class="flight-accordion" data-panel="flight-${key}"><summary class="flight-accordion-trigger"><span><strong>${label}</strong><small>${escape(date)} · ${escape(info)}</small></span><span class="accordion-chevron" aria-hidden="true">⌄</span></summary><div class="flight-accordion-body"><div class="flightgrid">${fields}</div>${statusControls(path, leg)}</div></details>`;
+    }
+
+    /** Основное поле цены: число, валюта и эквивалент в рублях и долларах. */
+    function prominentPrice(price, path, title, description) {
+        return `<div class="prominent-price"><div class="price-caption"><strong>${title}</strong><small>${description}</small></div><div class="prominent-price-fields">${priceEditor(price, path)}</div></div>`;
+    }
+
+    /** Жильё: главное — полная стоимость; ссылка раскрывается по нажатию. */
+    function housingCard(key, label, scenario, base) {
+        const home = scenario[key];
+        const path = base + '.' + key;
+        const count = key === 'ubud' ? Math.min(nights(), val(state.ubudNights)) : Math.max(0, nights() - val(state.ubudNights));
+        const link = home.url ? `<a class="saved-property-link" href="${escape(home.url)}" target="_blank" rel="noopener noreferrer">Открыть объект ↗</a>` : '';
+        return `<article class="housing-card"><div class="housing-heading"><h3>${label}</h3><span class="pill">${count} ночей</span></div>${prominentPrice(home.price, path + '.price', 'Полная стоимость на компанию', 'За все ночи, не за одну ночь')}<div class="housing-secondary"><label>Название жилья</label><input data-field="${path}.name" value="${escape(home.name)}" placeholder="Отель, вилла или апартаменты"><details class="property-link" data-panel="property-${key}" ${home.url ? 'open' : ''}><summary>${home.url ? 'Изменить ссылку на объект' : '+ Добавить ссылку на объект'}</summary><div class="property-link-field"><label>Ссылка на жильё</label><input type="url" data-field="${path}.url" value="${escape(home.url)}" placeholder="https://..."></div></details>${link}<details class="housing-options" data-panel="housing-options-${key}"><summary>Согласование и бронирование</summary>${statusControls(path, home)}</details></div></article>`;
+    }
+
+    /** Сохраняет открытые панели при пересчёте и изменении полей. */
+    function rememberOpenPanels() {
+        return new Set([...document.querySelectorAll('details[data-panel][open]')].map(element => element.dataset.panel));
+    }
+    function restoreOpenPanels(openPanels) {
+        document.querySelectorAll('details[data-panel]').forEach(element => {
+            if (openPanels.has(element.dataset.panel)) element.open = true;
+        });
+    }
+
+    /** Редактируемые детали текущего сценария. */
+    function renderDetail() {
+        const openPanels = rememberOpenPanels();
+        const id = state.scenario;
+        const scenario = state.scenarios[id];
+        const base = 'scenarios.' + id;
+        $('flightPrice').innerHTML = prominentPrice(scenario.flight, base + '.flight', 'Перелёт туда-обратно', 'Стоимость билетов на одного человека');
+        $('flights').innerHTML = flightForm(scenario.legs.out, 'out', 'Москва → Денпасар', state.departure) + flightForm(scenario.legs.back, 'back', 'Денпасар → Москва', state.return);
+        $('housing').innerHTML = housingCard('ubud', 'Убуд', scenario, base) + housingCard('uluwatu', 'Улувату', scenario, base);
+        $('expenses').innerHTML = categories.map(([key, label]) => {
+            const expense = scenario.expenses[key], path = base + '.expenses.' + key;
+            const basisLabel = { person_day: 'На человека в день', person_trip: 'На человека за поездку', group_day: 'На компанию в день', group_trip: 'На компанию за поездку' }[expense.basis];
+            return `<div class="expense"><div class="expensegrid"><div><strong>${label}</strong><div class="hint">${basisLabel}</div></div><input type="number" min="0" step="0.01" data-price="${path}.price" value="${escape(expense.price.v)}"><select data-currency="${path}.price">${options([['USD', 'USD $'], ['RUB', 'RUB ₽']], expense.price.c)}</select><select data-field="${path}.basis">${options([['person_day', 'Чел. / день'], ['person_trip', 'Чел. / поездка'], ['group_day', 'Компания / день'], ['group_trip', 'Компания / поездка']], expense.basis)}</select></div><small>Итого: ${fmtRub(calc(id).parts[key])} / ${fmtUsd(calc(id).parts[key] / rate())}</small></div>`;
+        }).join('');
+        $('reserve').value = scenario.reserve;
+        restoreOpenPanels(openPanels);
+    }
     function renderChecks() { const done = checks.filter(([id]) => state.checks[id]).length; $('checkProgress').textContent = done + ' / ' + checks.length; $('checkBar').style.width = (done / checks.length * 100) + '%'; $('checklist').innerHTML = checks.map(([id, label]) => `<label class="check ${state.checks[id] ? 'done' : ''}"><input type="checkbox" data-check="${id}" ${state.checks[id] ? 'checked' : ''}><span>${label}</span></label>`).join(''); }
     function renderAll() { ['departure', 'arrival', 'return', 'home', 'rate', 'people', 'budget'].forEach(k => $(k).value = state[k]); renderOverview(); renderDetail(); renderChecks(); save(); }
     // 5. СОБЫТИЯ: каждая группа действий вынесена в отдельную функцию.

@@ -471,8 +471,7 @@ button:hover {
 
 /* Основная синяя кнопка */
 
-button.primary,
-button.active {
+button.primary {
   background: var(--color-accent);
   border-color: var(--color-accent);
 
@@ -1108,6 +1107,41 @@ summary {
   .tab span {
     margin: 0;
   }
+}
+
+/* ==================================================
+   ИСПРАВЛЕНИЕ ЧИТАЕМОСТИ КАРТОЧЕК СЦЕНАРИЕВ
+   ================================================== */
+
+/* Основная сумма всегда тёмная */
+.tab,
+.tab.active {
+  color: var(--color-text);
+}
+
+/* Цвет заголовка зависит от сценария */
+.tab.active[data-scenario="economy"] strong {
+  color: var(--scenario-economy-text);
+}
+
+.tab.active[data-scenario="optimal"] strong {
+  color: var(--scenario-optimal-text);
+}
+
+.tab.active[data-scenario="comfort"] strong {
+  color: var(--scenario-comfort-text);
+}
+
+/* Сумма в рублях — тёмная во всех сценариях */
+.tab span,
+.tab.active span {
+  color: var(--color-text);
+}
+
+/* Сумма в долларах — приглушённая */
+.tab small,
+.tab.active small {
+  color: var(--color-secondary);
 }
 
 

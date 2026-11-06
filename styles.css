@@ -1,166 +1,349 @@
+
 /*
- * BALI TRIP PLANNER — ОФОРМЛЕНИЕ
- * ------------------------------------------------------------
- * 1. ЦВЕТА: изменяй значения ниже, чтобы менять всю палитру.
- * 2. БАЗОВЫЕ ЭЛЕМЕНТЫ: сетки, поля, кнопки и карточки.
- * 3. ВИЗУАЛЬНЫЙ СТИЛЬ: светлый Apple-inspired интерфейс.
- * 4. АДАПТАЦИЯ: правила для экранов телефонов.
- *
- * CSS-комментарии отображаются серым в редакторе кода.
- */
+============================================================
+BALI TRIP PLANNER — STYLES.CSS
+============================================================
 
-/* ========== 1. ПАЛИТРА / DESIGN TOKENS ========== */
+СТРУКТУРА:
+
+01. Цветовая палитра
+02. Базовые стили страницы
+03. Заголовок и навигация
+04. Карточки и типографика
+05. Сетки и расположение элементов
+06. Поля ввода и кнопки
+07. Сценарии поездки
+08. Финансовые показатели
+09. Перелёты, жильё и расходы
+10. Чек-лист и информационные блоки
+11. Дополнительные элементы
+12. Мобильная адаптация
+
+Все основные цвета находятся в разделе 01.
+============================================================
+*/
+
+
+/* =========================================================
+   01. ЦВЕТОВАЯ ПАЛИТРА
+   ========================================================= */
+
 :root {
-  --color-accent: #007AFF;        /* Активные кнопки, ползунки, ссылки */
-  --color-accent-soft: #EAF3FF;   /* Фон выбранных элементов */
-  --color-background: #F5F5F7;    /* Фон всей страницы */
-  --color-card: #FFFFFF;          /* Фон карточек */
-  --color-text: #1D1D1F;          /* Основной текст */
-  --color-muted: #6E6E73;         /* Подписи и пояснения */
-  --color-border: #E8E8ED;        /* Границы полей и карточек */
-  --color-danger: #52525B;        /* Ошибки и превышение бюджета */
-  --color-success: #536D8A;       /* Только статус успешного результата */
+
+  /* Основной интерфейс */
+  --color-accent: #007AFF;
+  --color-accent-soft: #EAF3FF;
+
+  /* Поверхности */
+  --color-background: #F5F5F7;
+  --color-card: #FFFFFF;
+  --color-surface: #F8F8FA;
+
+  /* Текст */
+  --color-text: #1D1D1F;
+  --color-muted: #6E6E73;
+  --color-secondary: #85858E;
+
+  /* Границы */
+  --color-border: #E8E8ED;
+  --color-border-light: #F0F0F2;
+
+  /* Финансовые статусы */
+  --color-success: #536D8A;
+  --color-success-soft: #EDF2F7;
+
+  --color-danger: #C05C61;
+  --color-danger-soft: #FAEFF0;
+
+  /* Сценарий: Экономный */
+  --scenario-economy-bg: #EDF3F7;
+  --scenario-economy-border: #C6D6E2;
+  --scenario-economy-text: #49677F;
+
+  /* Сценарий: Оптимальный */
+  --scenario-optimal-bg: #F1EFFA;
+  --scenario-optimal-border: #D6CFF0;
+  --scenario-optimal-text: #71649E;
+
+  /* Сценарий: Комфорт */
+  --scenario-comfort-bg: #F8F1E8;
+  --scenario-comfort-border: #DFC9AA;
+  --scenario-comfort-text: #967047;
+
+  /* Шрифты */
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "SF Pro Display",
+    "Segoe UI",
+    sans-serif;
+
+  color: var(--color-text);
+  background: var(--color-background);
+
+  font-synthesis: none;
 }
 
-/* ========== 2. БАЗОВАЯ СЕТКА И ЭЛЕМЕНТЫ ========== */
-:root {
-  font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color: #1d1d1f;
-  background: #f5f5f7;
-}
+
+/* =========================================================
+   02. БАЗОВЫЕ СТИЛИ СТРАНИЦЫ
+   ========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 
 main {
-  max-width: 1120px;
+  max-width: 1080px;
   margin: auto;
-  padding: 26px 18px 90px;
+  padding: 24px 24px 100px;
 }
 
+section[id] {
+  scroll-margin-top: 18px;
+}
+
+a {
+  color: var(--color-accent);
+}
+
+
+/* =========================================================
+   03. ЗАГОЛОВОК И НАВИГАЦИЯ
+   ========================================================= */
+
+/* Главная карточка Bali Trip Planner */
+
 .hero {
-  background: linear-gradient(120deg,#1d1d1f,#343438);
-  color: white;
-  border-radius: 24px;
-  padding: 26px;
+  background: var(--color-card);
+  color: var(--color-text);
+
+  border: 1px solid #E7E7EB;
+  border-radius: 28px;
+
+  padding: 30px 34px;
   margin-bottom: 18px;
+
+  box-shadow: 0 6px 28px #11111106;
 }
 
 .hero h1 {
-  font-size: 32px;
+  font-size: clamp(30px, 5vw, 48px);
+  font-weight: 750;
+
+  letter-spacing: -0.055em;
+  line-height: 1.08;
+
   margin: 4px 0;
 }
 
 .hero p {
-  opacity: .83;
+  color: #73737A;
+  opacity: 1;
+
+  font-size: 15px;
   margin: 4px 0 0;
 }
 
-.card {
-  background: white;
-  border: 1px solid #e8e8ed;
-  border-radius: 20px;
-  padding: 22px;
-  margin: 16px 0;
-  box-shadow: 0 5px 20px #1d1d1f08;
+.hero small {
+  color: #8B8B92 !important;
+  letter-spacing: 0.12em;
+  font-weight: 700;
 }
 
-h2 {
+.hero-eyebrow {
+  color: var(--color-muted);
+}
+
+.hero .actions {
+  align-self: flex-start;
+}
+
+.hero .actions button {
+  font-size: 12px;
+}
+
+.hero button {
+  background: var(--color-background);
+  color: var(--color-text);
+  border-color: #EDEDF0;
+}
+
+
+/* Навигация по разделам */
+
+.topnav {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.topnav a {
+  text-decoration: none;
+
+  background: var(--color-card);
+  color: #5E5E67;
+
+  border: 1px solid var(--color-border);
+  border-radius: 99px;
+
+  padding: 9px 14px;
+
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.topnav a:hover {
+  color: var(--color-accent);
+  border-color: #A7CFFF;
+}
+
+
+/* Мини-виджеты в заголовке */
+
+.widget-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.widget {
+  background: var(--color-background);
+
+  border-radius: 18px;
+  padding: 18px;
+
+  min-width: 0;
+}
+
+.widget .w-icon {
+  display: block;
+
   font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.widget .w-value {
+  font-size: 20px;
+  font-weight: 750;
+
+  letter-spacing: -0.04em;
+}
+
+.widget .w-label {
+  font-size: 12px;
+  color: #777780;
+
+  margin-top: 4px;
+}
+
+
+/* =========================================================
+   04. КАРТОЧКИ И ТИПОГРАФИКА
+   ========================================================= */
+
+/* Основные белые блоки страницы */
+
+.card {
+  background: var(--color-card);
+
+  border: 1px solid #EBEBEE;
+  border-radius: 25px;
+
+  padding: 28px 30px;
+  margin: 17px 0;
+
+  box-shadow: 0 8px 30px #11111105;
+}
+
+
+/* Заголовки разделов */
+
+h2 {
+  font-size: 22px;
+  font-weight: 720;
+
+  letter-spacing: -0.035em;
+
   margin: 0 0 17px;
 }
 
 h3 {
   font-size: 16px;
+  letter-spacing: -0.02em;
+
   margin: 0 0 12px;
 }
 
-.muted,small {
-  color: #6e6e73;
+
+/* Второстепенный текст */
+
+.muted,
+small {
+  color: var(--color-secondary);
   font-size: 12px;
 }
 
+.tiny {
+  font-size: 11px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: #8A8A92;
+}
+
+
+/* =========================================================
+   05. СЕТКИ И РАСПОЛОЖЕНИЕ ЭЛЕМЕНТОВ
+   ========================================================= */
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(2,minmax(0,1fr));
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
   gap: 14px;
 }
 
 .three {
-  grid-template-columns: repeat(3,minmax(0,1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .four {
-  grid-template-columns: repeat(4,minmax(0,1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 650;
-  color: #6e6e73;
-  margin-bottom: 6px;
-}
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 
-input,select,textarea {
-  font: inherit;
-  width: 100%;
-  padding: 11px 12px;
-  border: 1px solid #e8e8ed;
-  border-radius: 10px;
-  background: white;
-  color: #1d1d1f;
-  min-width: 0;
-}
-
-input[type=checkbox] {
-  width: 18px;
-  height: 18px;
-  accent-color: #007aff;
-}
-
-input[type=range] {
-  accent-color: #007aff;
-  padding: 0;
-}
-
-input:focus,select:focus {
-  outline: 2px solid #bcdcff;
-}
-
-button {
-  cursor: pointer;
-  border: 1px solid #e8e8ed;
-  background: white;
-  color: #1d1d1f;
-  border-radius: 11px;
-  padding: 10px 14px;
-  font: inherit;
-  font-weight: 650;
-}
-
-button.primary {
-  background: #007aff;
-  border-color: #007aff;
-  color: white;
-}
-
-button.active {
-  background: #eaf3ff;
-  border-color: #007aff;
-}
-
-button:hover {
-  filter: brightness(.97);
+  gap: 18px;
 }
 
 .row {
   display: flex;
+
   gap: 12px;
   align-items: center;
   justify-content: space-between;
@@ -170,91 +353,470 @@ button:hover {
   flex-wrap: wrap;
 }
 
-.summary {
-  background: #f5f5f7;
-  border-radius: 16px;
-  padding: 17px;
+.right {
+  text-align: right;
 }
 
-.big {
-  font-size: 29px;
-  font-weight: 800;
-  letter-spacing: -1px;
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 8px;
 }
 
-.sub {
-  font-size: 15px;
-  color: #6e6e73;
+.sectiontitle {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 8px;
 }
 
-.pill {
-  display: inline-block;
-  border-radius: 50px;
-  background: #f0f0f4;
-  padding: 5px 10px;
+
+/* =========================================================
+   06. ПОЛЯ ВВОДА И КНОПКИ
+   ========================================================= */
+
+/* Подписи полей */
+
+label {
+  display: block;
+
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
+
+  color: #797982;
+
+  margin-bottom: 6px;
 }
 
-.good {
-  color: #087d58;
+
+/* Текстовые поля, числа, даты и списки */
+
+input,
+select,
+textarea {
+  font: inherit;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 11px 12px;
+
+  background: var(--color-surface);
+  color: var(--color-text);
+
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
-.bad {
-  color: #c04444;
+
+/* Состояние фокуса */
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 0;
+
+  border-color: var(--color-accent);
+
+  box-shadow: 0 0 0 3px #007AFF1A;
 }
+
+
+/* Чекбоксы */
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+
+  accent-color: var(--color-accent);
+}
+
+
+/* Ползунок распределения ночей */
+
+input[type="range"] {
+  accent-color: var(--color-accent);
+  padding: 0;
+}
+
+
+/* Обычные кнопки */
+
+button {
+  cursor: pointer;
+
+  font: inherit;
+  font-weight: 650;
+
+  background: var(--color-card);
+  color: var(--color-text);
+
+  border: 1px solid #E6E6EB;
+  border-radius: 12px;
+
+  padding: 10px 14px;
+}
+
+button:hover {
+  filter: brightness(0.975);
+}
+
+
+/* Основная синяя кнопка */
+
+button.primary,
+button.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+
+  color: white;
+}
+
+
+/* =========================================================
+   07. СЦЕНАРИИ ПОЕЗДКИ
+   ========================================================= */
+
+/*
+Три сценария:
+
+Экономный    — серо-голубой
+Оптимальный  — лавандовый
+Комфорт      — песочный
+
+Цвета изменяются в разделе 01.
+*/
+
+
+/* Контейнер сценариев */
 
 .tabs {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
   gap: 10px;
 }
 
+
+/* Общий вид карточки сценария */
+
 .tab {
   text-align: left;
+
   padding: 14px;
-  border-radius: 14px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 18px;
+
+  background: #FAFAFA;
+  color: var(--color-text);
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .tab strong {
   display: block;
+
   font-size: 15px;
 }
 
 .tab span {
   display: block;
-  font-size: 13px;
+
+  font-size: 18px;
+  font-weight: 750;
+
+  letter-spacing: -0.035em;
+
   margin-top: 6px;
 }
 
+.tab:hover {
+  filter: brightness(0.985);
+}
+
+
+/* СЦЕНАРИЙ 1: ЭКОНОМНЫЙ */
+
+.tab[data-scenario="economy"] {
+  background: var(--scenario-economy-bg);
+  border-color: var(--scenario-economy-border);
+}
+
+.tab[data-scenario="economy"] strong {
+  color: var(--scenario-economy-text);
+}
+
+
+/* СЦЕНАРИЙ 2: ОПТИМАЛЬНЫЙ */
+
+.tab[data-scenario="optimal"] {
+  background: var(--scenario-optimal-bg);
+  border-color: var(--scenario-optimal-border);
+}
+
+.tab[data-scenario="optimal"] strong {
+  color: var(--scenario-optimal-text);
+}
+
+
+/* СЦЕНАРИЙ 3: КОМФОРТ */
+
+.tab[data-scenario="comfort"] {
+  background: var(--scenario-comfort-bg);
+  border-color: var(--scenario-comfort-border);
+}
+
+.tab[data-scenario="comfort"] strong {
+  color: var(--scenario-comfort-text);
+}
+
+
+/* Выбранный сценарий */
+
+.tab.active {
+  border-width: 2px;
+  border-style: solid;
+
+  box-shadow: 0 4px 16px #1D1D1F0A;
+}
+
+.tab.active[data-scenario="economy"] {
+  border-color: var(--scenario-economy-text);
+  background: var(--scenario-economy-bg);
+}
+
+.tab.active[data-scenario="optimal"] {
+  border-color: var(--scenario-optimal-text);
+  background: var(--scenario-optimal-bg);
+}
+
+.tab.active[data-scenario="comfort"] {
+  border-color: var(--scenario-comfort-text);
+  background: var(--scenario-comfort-bg);
+}
+
+
+/* Название активного сценария в других разделах */
+
+.scenarioBadge {
+  display: inline-block;
+
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+
+  padding: 5px 10px;
+
+  border-radius: 30px;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   08. ФИНАНСОВЫЕ ПОКАЗАТЕЛИ
+   ========================================================= */
+
+/* Карточки с общей стоимостью */
+
+.summary {
+  background: var(--color-background);
+
+  border-radius: 20px;
+  padding: 23px;
+}
+
+#topSummary .summary {
+  background: #F3F7FF;
+}
+
+
+/* Крупные суммы */
+
+.big {
+  font-size: clamp(27px, 4vw, 39px);
+  font-weight: 800;
+
+  letter-spacing: -0.055em;
+}
+
+#topSummary .big {
+  font-size: clamp(30px, 4vw, 42px);
+}
+
+
+/* Дополнительные суммы */
+
+.sub {
+  font-size: 15px;
+  color: var(--color-secondary);
+}
+
+
+/* Обычные информационные плашки */
+
+.pill {
+  display: inline-block;
+
+  background: #F0F0F4;
+  color: #45454B;
+
+  border-radius: 50px;
+
+  padding: 5px 10px;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* Положительный и отрицательный результат */
+
+.good {
+  color: var(--color-success);
+}
+
+.bad {
+  color: var(--color-danger);
+}
+
+
+/* Статус бюджета */
+
+.budget-status-row {
+  margin: 14px 0 10px;
+}
+
+.budget-status {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+}
+
+.budget-status.good {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.budget-status.bad {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+
+/* Полоса прогресса */
+
+.progress {
+  height: 10px;
+
+  background: #E9E9EF;
+
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress > div {
+  height: 100%;
+
+  background: var(--color-accent);
+
+  transition: width 0.2s;
+}
+
+
+/* Прогресс бюджета: положительный */
+
+.progress > .progress-success {
+  background: var(--color-success);
+}
+
+
+/* Прогресс бюджета: превышение */
+
+.progress > .progress-danger {
+  background: var(--color-danger);
+}
+
+.budget-progress-caption {
+  margin-top: 8px;
+}
+
+
+/* =========================================================
+   09. ПЕРЕЛЁТЫ, ЖИЛЬЁ И РАСХОДЫ
+   ========================================================= */
+
+/* Строка стоимости с валютами */
+
 .fieldrow {
   display: grid;
-  grid-template-columns: minmax(180px,1.4fr) minmax(90px,1fr) 90px minmax(110px,1fr);
+
+  grid-template-columns:
+    minmax(180px, 1.4fr)
+    minmax(90px, 1fr)
+    90px
+    minmax(110px, 1fr);
+
   align-items: center;
+
   gap: 10px;
   margin: 12px 0;
 }
 
 .fieldrow .hint {
   font-size: 12px;
-  color: #6e6e73;
+  color: var(--color-muted);
 }
 
+
+/* Карточка перелёта или проживания */
+
 .flight {
-  border: 1px solid #e8e8ed;
-  border-radius: 14px;
-  padding: 16px;
+  background: #FBFBFC;
+
+  border: 1px solid #ECECF0;
+  border-radius: 20px;
+
+  padding: 20px;
   margin: 12px 0;
 }
 
+.flight input {
+  font-size: 13px;
+}
+
+
+/* Сетка полей перелёта */
+
 .flightgrid {
   display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
   gap: 12px;
 }
 
+
+/* Категории расходов */
+
 .expense {
-  border-bottom: 1px solid #ededf0;
+  border-bottom: 1px solid #EDEDF0;
   padding: 11px 0;
 }
 
@@ -264,90 +826,71 @@ button:hover {
 
 .expensegrid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr 90px 1.2fr;
+
+  grid-template-columns:
+    1.5fr
+    1fr
+    90px
+    1.2fr;
+
   gap: 9px;
   align-items: end;
 }
 
-.progress {
-  height: 10px;
-  border-radius: 20px;
-  background: #e9e9ef;
-  overflow: hidden;
-}
 
-.progress>div {
-  height: 100%;
-  background: #007aff;
-  transition: width .2s;
-}
+/* =========================================================
+   10. ЧЕК-ЛИСТ И ИНФОРМАЦИОННЫЕ БЛОКИ
+   ========================================================= */
+
+/* Строка чек-листа */
 
 .check {
   display: flex;
+
   align-items: flex-start;
   gap: 11px;
+
   padding: 10px 0;
-  border-bottom: 1px solid #ededf0;
+
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 .check span {
   font-size: 14px;
 }
 
-.check.done span {
-  text-decoration: line-through;
-  color: #85858e;
+.check input {
+  accent-color: var(--color-accent);
 }
 
+
+/* Выполненная задача */
+
+.check.done span {
+  text-decoration: line-through;
+  color: var(--color-secondary);
+}
+
+
+/* Информационные примечания */
+
 .note {
-  background: #f6f6f8;
-  border-radius: 12px;
+  background: #F6F6F8;
+  color: #666670;
+
+  border-radius: 15px;
+
   padding: 12px 15px;
+
   font-size: 13px;
   line-height: 1.6;
 }
 
-.twoCol {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
 
-.right {
-  text-align: right;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-a {
-  color: #007aff;
-}
-
-.tiny {
-  font-size: 11px;
-}
-
-.sectiontitle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.scenarioBadge {
-  background: #eaf2ff;
-  color: #006ce1;
-  padding: 5px 10px;
-  border-radius: 30px;
-  font-size: 12px;
-}
+/* Раскрывающиеся блоки памятки */
 
 details {
-  border-bottom: 1px solid #ececf0;
+  border-bottom: 1px solid #ECECF0;
   padding: 12px 0;
 }
 
@@ -356,9 +899,28 @@ summary {
   font-weight: 650;
 }
 
+
+/* Ошибки и предупреждения */
+
+.danger {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+
+  padding: 10px;
+
+  border-radius: 9px;
+}
+
+
+/* =========================================================
+   11. ДОПОЛНИТЕЛЬНЫЕ ЭЛЕМЕНТЫ
+   ========================================================= */
+
 .divider {
   height: 1px;
-  background: #ececf0;
+
+  background: #ECECF0;
+
   margin: 15px 0;
 }
 
@@ -366,45 +928,73 @@ summary {
   font-size: 12px;
 }
 
-.danger {
-  background: #fff1ef;
-  color: #b74437;
-  padding: 10px;
-  border-radius: 9px;
-}
-
 .footer {
   font-size: 12px;
-  color: #94949c;
-  margin-top: 22px;
-}
+  color: #94949C;
 
-.flight input {
-  font-size: 13px;
+  margin-top: 22px;
 }
 
 .sticky-summary {
   display: none;
 }
 
-@media (max-width:700px) {
+
+/* Вспомогательные классы */
+
+.margin-top-12 {
+  margin-top: 12px;
+}
+
+.margin-top-15 {
+  margin-top: 15px;
+}
+
+.margin-top-16 {
+  margin-top: 16px;
+}
+
+.reserve-input {
+  max-width: 140px;
+}
+
+.date-error-hidden {
+  display: none;
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   12. МОБИЛЬНАЯ АДАПТАЦИЯ
+   ========================================================= */
+
+/*
+Эти правила применяются на экранах
+шириной 700px и меньше.
+*/
+
+@media (max-width: 700px) {
+
   main {
-    padding: 12px 12px 70px;
+    padding: 12px 12px 65px;
   }
 
   .hero {
-    padding: 20px;
+    padding: 23px 20px;
   }
 
   .hero h1 {
-    font-size: 26px;
+    font-size: 34px;
   }
 
   .card {
-    padding: 16px;
+    padding: 20px 17px;
   }
 
-  .grid,.three,.four,.twoCol {
+  .grid,
+  .three,
+  .four,
+  .twoCol {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -432,8 +1022,8 @@ summary {
     grid-template-columns: 1fr 1fr 76px;
   }
 
-  .fieldrow>div:first-child {
-    grid-column: 1/-1;
+  .fieldrow > div:first-child {
+    grid-column: 1 / -1;
   }
 
   .flightgrid {
@@ -444,8 +1034,8 @@ summary {
     grid-template-columns: 1fr 1fr 75px;
   }
 
-  .expensegrid>div:first-child {
-    grid-column: 1/-1;
+  .expensegrid > div:first-child {
+    grid-column: 1 / -1;
   }
 
   .row.wrap {
@@ -455,346 +1045,9 @@ summary {
   .hide-mobile {
     display: none;
   }
-}
-
-@media (max-width:390px) {
-  .grid,.three,.four {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .flightgrid {
-    grid-template-columns: 1fr;
-  }
-
-  .tabs {
-    grid-template-columns: 1fr;
-  }
-
-  .tab {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .tab span {
-    margin: 0;
-  }
-}
-
-/* ========== 3. СОВРЕМЕННЫЙ ВИЗУАЛЬНЫЙ СТИЛЬ ========== */
-:root {
-  font-family: -apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
-  color: #1d1d1f;
-  background: #f5f5f7;
-  font-synthesis: none;
-}
-
-body {
-  background: #f5f5f7;
-}
-
-main {
-  max-width: 1080px;
-  padding: 24px 24px 100px;
-}
-
-.hero {
-  background: #fff;
-  color: #1d1d1f;
-  border: 1px solid #e7e7eb;
-  border-radius: 28px;
-  padding: 30px 34px;
-  box-shadow: 0 6px 28px #11111106;
-}
-
-.hero h1 {
-  font-size: clamp(30px,5vw,48px);
-  font-weight: 750;
-  letter-spacing: -.055em;
-  line-height: 1.08;
-}
-
-.hero p {
-  color: #73737a;
-  opacity: 1;
-  font-size: 15px;
-}
-
-.hero small {
-  color: #8b8b92 !important;
-  letter-spacing: .12em;
-  font-weight: 700;
-}
-
-.hero button {
-  background: #f5f5f7;
-  color: #1d1d1f;
-  border-color: #ededf0;
-}
-
-.card {
-  border: 1px solid #ebebee;
-  border-radius: 25px;
-  padding: 28px 30px;
-  margin: 17px 0;
-  box-shadow: 0 8px 30px #11111105;
-}
-
-h2 {
-  font-size: 22px;
-  font-weight: 720;
-  letter-spacing: -.035em;
-}
-
-h3 {
-  letter-spacing: -.02em;
-}
-
-label {
-  color: #797982;
-  font-weight: 600;
-}
-
-input,select,textarea {
-  background: #f8f8fa;
-  border: 1px solid #e8e8ed;
-  border-radius: 12px;
-  color: #1d1d1f;
-  transition: border-color .15s,box-shadow .15s;
-}
-
-input:focus,select:focus,textarea:focus {
-  outline: 0;
-  border-color: #007aff;
-  box-shadow: 0 0 0 3px #007aff1a;
-}
-
-button {
-  border-radius: 12px;
-  border-color: #e6e6eb;
-  color: #1d1d1f;
-}
-
-button.primary,button.active {
-  background: #007aff;
-  color: white;
-  border-color: #007aff;
-}
-
-button:hover {
-  filter: brightness(.975);
-}
-
-.summary {
-  background: #f5f5f7;
-  border-radius: 20px;
-  padding: 23px;
-}
-
-.big {
-  font-size: clamp(27px,4vw,39px);
-  letter-spacing: -.055em;
-}
-
-.sub {
-  color: #85858e;
-}
-
-.pill {
-  background: #f0f0f4;
-  color: #45454b;
-}
-
-.good {
-  color: #18865b;
-}
-
-.bad {
-  color: #d34444;
-}
-
-.progress {
-  background: #e9e9ef;
-}
-
-.progress>div {
-  background: #007aff;
-}
-
-.tab {
-  border: 1px solid #e7e7ed;
-  border-radius: 18px;
-  background: #fafafa;
-}
-
-.tab.active {
-  background: #eef5ff;
-  border: 2px solid #007aff;
-  color: #1d1d1f;
-}
-
-.tab.active strong {
-  color: #006ce1;
-}
-
-.tab span {
-  font-size: 18px;
-  font-weight: 750;
-  letter-spacing: -.035em;
-}
-
-.scenarioBadge {
-  background: #eaf2ff;
-  color: #006ce1;
-}
-
-.flight {
-  background: #fbfbfc;
-  border: 1px solid #ececf0;
-  border-radius: 20px;
-  padding: 20px;
-}
-
-.note {
-  background: #f6f6f8;
-  color: #666670;
-  border-radius: 15px;
-}
-
-.divider {
-  background: #ececf0;
-}
-
-.check {
-  border-color: #f0f0f2;
-}
-
-.check input {
-  accent-color: #007aff;
-}
-
-.expense {
-  border-color: #ededf0;
-}
-
-.widget-grid {
-  display: grid;
-  grid-template-columns: repeat(3,minmax(0,1fr));
-  gap: 12px;
-  margin-top: 22px;
-}
-
-.widget {
-  background: #f5f5f7;
-  border-radius: 18px;
-  padding: 18px;
-  min-width: 0;
-}
-
-.widget .w-icon {
-  font-size: 21px;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.widget .w-value {
-  font-size: 20px;
-  font-weight: 750;
-  letter-spacing: -.04em;
-}
-
-.widget .w-label {
-  font-size: 12px;
-  color: #777780;
-  margin-top: 4px;
-}
-
-.topnav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 20px;
-}
-
-.topnav a {
-  text-decoration: none;
-  background: #fff;
-  border: 1px solid #e8e8ed;
-  border-radius: 99px;
-  padding: 9px 14px;
-  color: #5e5e67;
-  font-size: 12px;
-  font-weight: 650;
-}
-
-.topnav a:hover {
-  color: #007aff;
-  border-color: #a7cfff;
-}
-
-.eyebrow {
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #8a8a92;
-  font-weight: 700;
-}
-
-.sectiontitle {
-  align-items: center;
-}
-
-#topSummary .summary {
-  background: #f3f7ff;
-}
-
-#topSummary .big {
-  font-size: clamp(30px,4vw,42px);
-}
-
-.muted,small {
-  color: #85858e;
-}
-
-.footer {
-  color: #94949c;
-}
-
-.hero .actions button {
-  font-size: 12px;
-}
-
-.hero .actions {
-  align-self: flex-start;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-section[id] {
-  scroll-margin-top: 18px;
-}
-
-@media (max-width:700px) {
-  main {
-    padding: 12px 12px 65px;
-  }
-
-  .hero {
-    padding: 23px 20px;
-  }
-
-  .hero h1 {
-    font-size: 34px;
-  }
-
-  .card {
-    padding: 20px 17px;
-  }
 
   .widget-grid {
-    grid-template-columns: repeat(3,minmax(0,1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 7px;
   }
 
@@ -824,42 +1077,40 @@ section[id] {
   }
 }
 
-/* ========== 4. ЦЕНТРАЛИЗОВАННЫЕ ЦВЕТА ========== */
-:root { color: var(--color-text); background: var(--color-background); }
-body { background: var(--color-background); color: var(--color-text); }
-a { color: var(--color-accent); }
-input[type="range"], input[type="checkbox"] { accent-color: var(--color-accent); }
-button.primary, button.active { background: var(--color-accent); border-color: var(--color-accent); color: white; }
-.tab.active { background: var(--color-accent-soft); border-color: var(--color-accent); color: var(--color-text); }
-.tab.active strong, .scenarioBadge { color: var(--color-accent); }
-.scenarioBadge { background: var(--color-accent-soft); }
-.progress > div { background: var(--color-accent); }
-input:focus, select:focus, textarea:focus { border-color: var(--color-accent); }
-.good { color: var(--color-success); }
-.bad { color: var(--color-danger); }
-.hero-eyebrow { color: var(--color-muted); }
-.margin-top-12 { margin-top: 12px; }
-.margin-top-15 { margin-top: 15px; }
-.margin-top-16 { margin-top: 16px; }
-.reserve-input { max-width: 140px; }
-.date-error-hidden { display: none; margin-top: 12px; }
 
-/* ========== 5. ФИНАНСОВЫЕ СТАТУСЫ ========== */
-:root {
-  --color-success-soft: #536D8A;
-  --color-danger-soft: #52525B;
+/*
+Адаптация для очень узких экранов.
+*/
+
+@media (max-width: 390px) {
+
+  .grid,
+  .three,
+  .four {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .flightgrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .tab {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tab span {
+    margin: 0;
+  }
 }
 
-.budget-status-row { margin: 14px 0 10px; }
-.budget-status {
-  display: inline-flex;
-  align-items: center;
-  padding: 7px 11px;
-  border-radius: 999px;
-  font-size: 13px;
-}
-.budget-status.good { background: var(--color-success-soft); color: var(--color-success); }
-.budget-status.bad { background: var(--color-danger-soft); color: var(--color-danger); }
-.progress > .progress-success { background: var(--color-success); }
-.progress > .progress-danger { background: var(--color-danger); }
-.budget-progress-caption { margin-top: 8px; }
+
+/* =========================================================
+   КОНЕЦ STYLES.CSS
+   ========================================================= */

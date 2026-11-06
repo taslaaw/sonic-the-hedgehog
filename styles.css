@@ -845,11 +845,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--color-accent); }
 .date-error-hidden { display: none; margin-top: 12px; }
 
 /* ========== 5. ФИНАНСОВЫЕ СТАТУСЫ ========== */
-/* Спокойный нефритовый зелёный только для положительного результата.
-   Синий акцент остаётся для кнопок, ползунков и активных сценариев. */
 :root {
-  --color-success-soft: #EAF5EF;
-  --color-danger-soft: #FFF0F0;
+  --color-success-soft: #536D8A;
+  --color-danger-soft: #52525B;
 }
 
 .budget-status-row { margin: 14px 0 10px; }

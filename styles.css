@@ -82,6 +82,34 @@ BALI TRIP PLANNER — STYLES.CSS
   background: var(--color-background);
 
   font-synthesis: none;
+
+  /* Дополнительные оттенки интерфейса — все цвета в одном месте */
+  --color-on-accent: #FFFFFF;
+  --color-hero-border: #E7E7EB;
+  --shadow-hero: #11111106;
+  --color-hero-description: #73737A;
+  --color-hero-eyebrow: #8B8B92;
+  --color-soft-divider: #EDEDF0;
+  --color-nav-text: #5E5E67;
+  --color-nav-hover-border: #A7CFFF;
+  --color-widget-label: #777780;
+  --color-card-border: #EBEBEE;
+  --shadow-card: #11111105;
+  --color-eyebrow: #8A8A92;
+  --color-label: #797982;
+  --shadow-focus: #007AFF1A;
+  --color-button-border: #E6E6EB;
+  --shadow-active-tab: #1D1D1F0A;
+  --color-summary-highlight: #F3F7FF;
+  --color-pill-bg: #F0F0F4;
+  --color-pill-text: #45454B;
+  --color-progress-track: #E9E9EF;
+  --color-flight-bg: #FBFBFC;
+  --color-divider: #ECECF0;
+  --color-note-bg: #F6F6F8;
+  --color-note-text: #666670;
+  --color-footer: #94949C;
+
 }
 
 
@@ -128,13 +156,13 @@ a {
   background: var(--color-card);
   color: var(--color-text);
 
-  border: 1px solid #E7E7EB;
+  border: 1px solid var(--color-hero-border);
   border-radius: 28px;
 
   padding: 30px 34px;
   margin-bottom: 18px;
 
-  box-shadow: 0 6px 28px #11111106;
+  box-shadow: 0 6px 28px var(--shadow-hero);
 }
 
 .hero h1 {
@@ -148,7 +176,7 @@ a {
 }
 
 .hero p {
-  color: #73737A;
+  color: var(--color-hero-description);
   opacity: 1;
 
   font-size: 15px;
@@ -156,7 +184,7 @@ a {
 }
 
 .hero small {
-  color: #8B8B92 !important;
+  color: var(--color-hero-eyebrow) !important;
   letter-spacing: 0.12em;
   font-weight: 700;
 }
@@ -176,7 +204,7 @@ a {
 .hero button {
   background: var(--color-background);
   color: var(--color-text);
-  border-color: #EDEDF0;
+  border-color: var(--color-soft-divider);
 }
 
 
@@ -194,7 +222,7 @@ a {
   text-decoration: none;
 
   background: var(--color-card);
-  color: #5E5E67;
+  color: var(--color-nav-text);
 
   border: 1px solid var(--color-border);
   border-radius: 99px;
@@ -207,7 +235,7 @@ a {
 
 .topnav a:hover {
   color: var(--color-accent);
-  border-color: #A7CFFF;
+  border-color: var(--color-nav-hover-border);
 }
 
 
@@ -247,7 +275,7 @@ a {
 
 .widget .w-label {
   font-size: 12px;
-  color: #777780;
+  color: var(--color-widget-label);
 
   margin-top: 4px;
 }
@@ -262,13 +290,13 @@ a {
 .card {
   background: var(--color-card);
 
-  border: 1px solid #EBEBEE;
+  border: 1px solid var(--color-card-border);
   border-radius: 25px;
 
   padding: 28px 30px;
   margin: 17px 0;
 
-  box-shadow: 0 8px 30px #11111105;
+  box-shadow: 0 8px 30px var(--shadow-card);
 }
 
 
@@ -310,7 +338,7 @@ small {
   letter-spacing: 0.12em;
   text-transform: uppercase;
 
-  color: #8A8A92;
+  color: var(--color-eyebrow);
 }
 
 
@@ -386,7 +414,7 @@ label {
   font-size: 12px;
   font-weight: 600;
 
-  color: #797982;
+  color: var(--color-label);
 
   margin-bottom: 6px;
 }
@@ -425,7 +453,7 @@ textarea:focus {
 
   border-color: var(--color-accent);
 
-  box-shadow: 0 0 0 3px #007AFF1A;
+  box-shadow: 0 0 0 3px var(--shadow-focus);
 }
 
 
@@ -458,7 +486,7 @@ button {
   background: var(--color-card);
   color: var(--color-text);
 
-  border: 1px solid #E6E6EB;
+  border: 1px solid var(--color-button-border);
   border-radius: 12px;
 
   padding: 10px 14px;
@@ -475,7 +503,7 @@ button.primary {
   background: var(--color-accent);
   border-color: var(--color-accent);
 
-  color: white;
+  color: var(--color-on-accent);
 }
 
 
@@ -515,7 +543,7 @@ button.primary {
   border: 1px solid var(--color-border);
   border-radius: 18px;
 
-  background: #FAFAFA;
+  background: var(--color-tab-default);
   color: var(--color-text);
 
   transition:
@@ -531,6 +559,7 @@ button.primary {
 }
 
 .tab span {
+  color: var(--color-text);
   display: block;
 
   font-size: 18px;
@@ -539,6 +568,10 @@ button.primary {
   letter-spacing: -0.035em;
 
   margin-top: 6px;
+}
+
+.tab small {
+  color: var(--color-secondary);
 }
 
 .tab:hover {
@@ -582,44 +615,29 @@ button.primary {
 }
 
 
-
-/* =========================================================
-   ВЫБРАННЫЙ СЦЕНАРИЙ
-   ========================================================= */
+/* Выбранный сценарий */
 
 .tab.active {
   border-width: 2px;
   border-style: solid;
-  box-shadow: 0 4px 16px #1D1D1F0A;
+
+  box-shadow: 0 4px 16px var(--shadow-active-tab);
 }
 
-/* Активная карточка: все суммы остаются читаемыми */
-button.tab.active span {
-  color: #1D1D1F !important;
-}
-
-button.tab.active small {
-  color: #85858E !important;
-}
-
-/* Экономный */
 .tab.active[data-scenario="economy"] {
   border-color: var(--scenario-economy-text);
   background: var(--scenario-economy-bg);
 }
 
-/* Оптимальный */
 .tab.active[data-scenario="optimal"] {
   border-color: var(--scenario-optimal-text);
   background: var(--scenario-optimal-bg);
 }
 
-/* Комфорт */
 .tab.active[data-scenario="comfort"] {
   border-color: var(--scenario-comfort-text);
   background: var(--scenario-comfort-bg);
 }
-
 
 
 /* Название активного сценария в других разделах */
@@ -652,7 +670,7 @@ button.tab.active small {
 }
 
 #topSummary .summary {
-  background: #F3F7FF;
+  background: var(--color-summary-highlight);
 }
 
 
@@ -683,8 +701,8 @@ button.tab.active small {
 .pill {
   display: inline-block;
 
-  background: #F0F0F4;
-  color: #45454B;
+  background: var(--color-pill-bg);
+  color: var(--color-pill-text);
 
   border-radius: 50px;
 
@@ -739,7 +757,7 @@ button.tab.active small {
 .progress {
   height: 10px;
 
-  background: #E9E9EF;
+  background: var(--color-progress-track);
 
   border-radius: 20px;
   overflow: hidden;
@@ -802,9 +820,9 @@ button.tab.active small {
 /* Карточка перелёта или проживания */
 
 .flight {
-  background: #FBFBFC;
+  background: var(--color-flight-bg);
 
-  border: 1px solid #ECECF0;
+  border: 1px solid var(--color-divider);
   border-radius: 20px;
 
   padding: 20px;
@@ -830,7 +848,7 @@ button.tab.active small {
 /* Категории расходов */
 
 .expense {
-  border-bottom: 1px solid #EDEDF0;
+  border-bottom: 1px solid var(--color-soft-divider);
   padding: 11px 0;
 }
 
@@ -889,8 +907,8 @@ button.tab.active small {
 /* Информационные примечания */
 
 .note {
-  background: #F6F6F8;
-  color: #666670;
+  background: var(--color-note-bg);
+  color: var(--color-note-text);
 
   border-radius: 15px;
 
@@ -904,7 +922,7 @@ button.tab.active small {
 /* Раскрывающиеся блоки памятки */
 
 details {
-  border-bottom: 1px solid #ECECF0;
+  border-bottom: 1px solid var(--color-divider);
   padding: 12px 0;
 }
 
@@ -933,7 +951,7 @@ summary {
 .divider {
   height: 1px;
 
-  background: #ECECF0;
+  background: var(--color-divider);
 
   margin: 15px 0;
 }
@@ -944,7 +962,7 @@ summary {
 
 .footer {
   font-size: 12px;
-  color: #94949C;
+  color: var(--color-footer);
 
   margin-top: 22px;
 }
@@ -1124,43 +1142,11 @@ summary {
   }
 }
 
-
-/* =========================================================
-   13. ЧИТАЕМОСТЬ КАРТОЧЕК СЦЕНАРИЕВ
-   ========================================================= */
-
-/* Все карточки, включая выбранную */
-button.tab,
-button.tab.active {
-  color: #1D1D1F !important;
-}
-
-/* Все вложенные элементы наследуют тёмный текст */
-button.tab *,
-button.tab.active * {
-  color: inherit;
-}
-
-/* Названия сценариев — индивидуальные цвета */
-button.tab[data-scenario="economy"] strong {
-  color: var(--scenario-economy-text);
-}
-
-button.tab[data-scenario="optimal"] strong {
-  color: var(--scenario-optimal-text);
-}
-
-button.tab[data-scenario="comfort"] strong {
-  color: var(--scenario-comfort-text);
-}
-
-/* Второстепенные суммы */
-button.tab small,
-button.tab .muted {
-  color: var(--color-secondary);
-}
-
-
 /* =========================================================
    КОНЕЦ STYLES.CSS
    ========================================================= */
+/* Строки разбивки расходов: цвет границы из общей палитры */
+.breakdown-row {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--color-border-light);
+}

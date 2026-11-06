@@ -582,29 +582,44 @@ button.primary {
 }
 
 
-/* Выбранный сценарий */
+
+/* =========================================================
+   ВЫБРАННЫЙ СЦЕНАРИЙ
+   ========================================================= */
 
 .tab.active {
   border-width: 2px;
   border-style: solid;
-
   box-shadow: 0 4px 16px #1D1D1F0A;
 }
 
+/* Активная карточка: все суммы остаются читаемыми */
+button.tab.active span {
+  color: #1D1D1F !important;
+}
+
+button.tab.active small {
+  color: #85858E !important;
+}
+
+/* Экономный */
 .tab.active[data-scenario="economy"] {
   border-color: var(--scenario-economy-text);
   background: var(--scenario-economy-bg);
 }
 
+/* Оптимальный */
 .tab.active[data-scenario="optimal"] {
   border-color: var(--scenario-optimal-text);
   background: var(--scenario-optimal-bg);
 }
 
+/* Комфорт */
 .tab.active[data-scenario="comfort"] {
   border-color: var(--scenario-comfort-text);
   background: var(--scenario-comfort-bg);
 }
+
 
 
 /* Название активного сценария в других разделах */
